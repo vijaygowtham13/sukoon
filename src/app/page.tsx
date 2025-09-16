@@ -214,7 +214,7 @@ export default function Home() {
                   />
                 </svg>
               </Link>
-            <button className="border border-gray-300 rounded-md px-4 py-1 text-sm hover:shadow-sm cursor-pointer">
+            <button className="border border-green-600 rounded-md px-4 py-1 text-sm hover:shadow-sm cursor-pointer">
               Login / Signup
             </button>
           </div>
@@ -438,7 +438,7 @@ export default function Home() {
                     alt={doc.title}
                     width={300}
                     height={200}
-                    className="w-full h-48 object-cover border border-green-600 shadow-lg shadow-green-300"
+                    className="w-full h-48 object-cover border border-green-600"
                   />
                   <div className="p-4">
                     <h3 className="font-semibold text-gray-900">{doc.title}</h3>
