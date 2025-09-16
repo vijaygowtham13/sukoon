@@ -635,7 +635,7 @@ export default function Home() {
       </div>
     </section>
 
-     <footer className="bg-green-600 text-white py-12 px-6 md:px-16">
+     <footer className="bg-green-300 text-white py-12 px-6 md:px-16">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
         {/* Sukoon Column */}
         <div>
