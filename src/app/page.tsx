@@ -150,7 +150,7 @@ export default function Home() {
           {/* right: small links + login */}
           <div className="flex items-center gap-6 text-sm">
             <div className="flex items-center gap-2">
-              <span className="inline-block bg-[#334ec9] text-white text-[10px] px-2 py-[3px] rounded-full font-semibold">
+              <span className="inline-block bg-green-600 text-white text-[10px] px-2 py-[3px] rounded-full font-semibold">
                 NEW
               </span>
               <Link
@@ -595,7 +595,7 @@ export default function Home() {
                 className="px-3 py-2 w-full outline-none text-gray-800"
               />
             </div>
-            <button className="px-6 py-2 rounded-lg bg-sky-500 text-white font-medium hover:bg-sky-600 transition">
+            <button className="px-3 py-1 rounded-lg bg-green-600 text-white font-medium hover:bg-sky-600 transition">
               Send SMS
             </button>
           </div>
@@ -623,7 +623,7 @@ export default function Home() {
       </div>
     </section>
 
-     <footer className="bg-[#2d3eaa] text-white py-12 px-6 md:px-16">
+     <footer className="bg-green-600 text-white py-12 px-6 md:px-16">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
         {/* Sukoon Column */}
         <div>
