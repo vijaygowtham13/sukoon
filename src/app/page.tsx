@@ -66,7 +66,7 @@ export default function Home() {
   ];
     const testimonialsData = [
     {
-      text: "Very easy to book, maintain history. Hassle free from older versions of booking appointment via telephone. Thanks Practo for making it simple.",
+      text: "Very easy to book, maintain history. Hassle free from older versions of booking appointment via telephone. Thanks Sukoon for making it simple.",
       user: "Jyothi Bhatia",
     },
     {
