@@ -4,6 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect,useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Roboto ,Merriweather} from "next/font/google";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["800", "800"], // choose the weights you need
+});
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["400", "700"], // regular + bold for headings
+});
 
 
 export default function Home() {
@@ -127,21 +137,20 @@ export default function Home() {
           {/* left: logo + main links */}
           <div className="flex items-center">
             <div className="flex items-center mr-20">
-              
-              <span className="text-3xl font-bold text-green-600 tracking-tight">
+              <span className={`text-3xl font-bold text-green-600 tracking-tight ${merriweather.className}`}>
                 Sukoon
               </span>
               
             </div>
 
-            <nav className="hidden md:flex gap-6 text-base font-bold text-gray-700">
-              <Link href="#" className="hover:text-gray-900">
+            <nav className="hidden md:flex gap-6 text-base font-extrabold text-gray-700">
+              <Link href="#" className={roboto.className}>
                 Find Doctors
               </Link>
-              <Link href="#" className="hover:text-gray-900">
+              <Link href="#" className={roboto.className}>
                 Video Consult
               </Link>
-              <Link href="#" className="hover:text-gray-900">
+              <Link href="#" className={roboto.className}>
                 Surgeries
               </Link>
             </nav>
@@ -214,11 +223,11 @@ export default function Home() {
 
       {/* SEARCH BAR */}
       <section className="max-w-xl mx-40 px-2 mt-8">
-        <div className="flex border border-gray-300 rounded-md overflow-hidden shadow-sm h-10">
+        <div className="flex border border-green-600 rounded-md overflow-hidden shadow-sm h-10">
           {/* location */}
-          <div className="flex items-center gap-3 px-4 border-r border-gray-200 bg-white w-56">
+          <div className="flex items-center gap-3 px-4 border-r border-green-600 bg-white w-56">
             <svg
-              className="w-4 h-4 text-gray-500"
+              className="w-4 h-4 text-green-600"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -237,37 +246,39 @@ export default function Home() {
               />
             </svg>
             <input
-              className="w-full outline-none text-sm text-gray-700 placeholder-gray-400"
+              className="w-full outline-none text-sm text-green-300 placeholder-green-600"
               placeholder="Visakhapatnam"
             />
           </div>
 
+        
           {/* search */}
-          <div className="flex items-center px-4 flex-1 bg-white">
-            <svg
-              className="w-4 h-4 text-gray-400 mr-3"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35"
-              />
-              <path
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M11 18a7 7 0 100-14 7 7 0 000 14z"
-              />
-            </svg>
-            <input
-              className="w-full outline-none text-sm text-gray-600 placeholder-gray-400"
-              placeholder="Search doctors, clinics, hospitals, etc."
-            />
-          </div>
+<div className="flex items-center px-4 flex-1 bg-green-600">
+  <svg
+    className="w-4 h-4 text-white mr-3"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+  >
+    <path
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M21 21l-4.35-4.35"
+    />
+    <path
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M11 18a7 7 0 100-14 7 7 0 000 14z"
+    />
+  </svg>
+  <input
+    className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
+    placeholder="Search doctors, clinics, hospitals, etc."
+  />
+</div>
+
         </div>
       </section>
 
@@ -275,7 +286,7 @@ export default function Home() {
       <main className="max-w-3xl mx-auto px-6 mt-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1 */}
-          <article className="rounded-2xl overflow-hidden shadow-md bg-white">
+          <article className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 shadow-md bg-white">
             <div className="h-48 flex items-center justify-center bg-blue-200 ">
               <Image
                 src="/1.png"
@@ -286,7 +297,7 @@ export default function Home() {
               />
             </div>
             <div className="px-6 py-6">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
                 Instant Video Consultation
               </h3>
               <p className="mt-2 text-gray-500 text-sm">Connect within 60 secs</p>
@@ -294,7 +305,7 @@ export default function Home() {
           </article>
 
           {/* Card 2 */}
-          <article className="rounded-2xl overflow-hidden shadow-md bg-white">
+          <article className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 shadow-md bg-white">
             <div className="h-48 flex items-center justify-center bg-[#4DB3AD]">
               <Image
                 src="/2.png"
@@ -305,7 +316,7 @@ export default function Home() {
               />
             </div>
             <div className="px-6 py-6">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
                 Find Doctors Near You
               </h3>
               <p className="mt-2 text-gray-500 text-sm">
@@ -315,7 +326,7 @@ export default function Home() {
           </article>
 
           {/* Card 3 */}
-          <article className="rounded-2xl overflow-hidden shadow-md bg-white">
+          <article className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 shadow-md bg-white">
             <div className="h-48 flex items-center justify-center bg-[#EDE7FF]">
               <Image
                 src="/3.png"
@@ -326,7 +337,7 @@ export default function Home() {
               />
             </div>
             <div className="px-6 py-6">
-              <h3 className="text-lg font-semibold text-gray-900">Surgeries</h3>
+              <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>Surgeries</h3>
               <p className="mt-2 text-gray-500 text-sm">
                 Safe and trusted surgery centers
               </p>
@@ -340,7 +351,7 @@ export default function Home() {
   {/* Header Row */}
   <div className="flex flex-col md:flex-row md:items-center md:justify-between text-center md:text-left">
     <div>
-      <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
+      <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
         Consult top doctors online for any health concern
       </h2>
       <p className="text-gray-600 mt-2">
@@ -349,7 +360,7 @@ export default function Home() {
     </div>
 
     <div className="mt-4 md:mt-0">
-      <button className="border border-sky-500 text-sky-500 rounded-md px-6 py-2 hover:bg-sky-50 transition cursor-pointer">
+      <button className="border border-green-600 text-green-600 rounded-md px-6 py-2 hover:bg-green-50 transition cursor-pointer">
         View All Specialities
       </button>
     </div>
@@ -369,13 +380,13 @@ export default function Home() {
         key={i}
         className="flex flex-col items-center text-center w-full"
       >
-        <div className="w-28 h-28 flex items-center justify-center rounded-full bg-[#F8FAFF] shadow-sm">
+        <div className="w-28 h-28 flex items-center justify-center rounded-full shadow-xl shadow-green-300 shadow-sm">
           <Image
             src={item.img}
             alt={item.title}
             width={70}
             height={70}
-            className="object-contain"
+            className="object-contain w-22 h-22 object-cover"
           />
         </div>
         {/* text is constrained so it aligns under circle */}
@@ -384,7 +395,7 @@ export default function Home() {
         </p>
         <a
           href="#"
-          className="mt-2 text-sm font-semibold text-sky-500 hover:underline"
+          className="mt-2 text-sm font-semibold text-green-600 hover:underline"
         >
           CONSULT NOW
         </a>
@@ -394,11 +405,11 @@ export default function Home() {
 </section>
 
 
-       <section className="px-6 md:px-35 py-12">
-      <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 text-center">
+       <section className="px-6 md:px-35 py-12 ">
+      <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
         Book an appointment for an in-clinic consultation
       </h2>
-      <p className="text-gray-600 text-center mt-2">
+      <p className="text-gray-600 mt-2">
         Find experienced doctors across all specialties
       </p>
 
@@ -414,20 +425,20 @@ export default function Home() {
         </button>
 
         {/* Cards */}
-        <div className="overflow-hidden">
+        <div className="overflow-hidden ">
           <div
-            className="flex transition-transform duration-500 ease-in-out"
+            className="flex transition-transform duration-500 ease-in-out "
             style={{ transform: `translateX(-${index * 25}%)` }}
           >
             {doctors.map((doc, i) => (
-              <div key={i} className="w-1/4 flex-shrink-0 px-3 text-center">
+              <div key={i} className="w-1/4 flex-shrink-0 px-3 text-center  ">
                 <div className="rounded-xl overflow-hidden shadow-sm bg-white">
                   <Image
                     src={doc.img}
                     alt={doc.title}
                     width={300}
                     height={200}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-48 object-cover border border-green-600 shadow-lg shadow-green-300"
                   />
                   <div className="p-4">
                     <h3 className="font-semibold text-gray-900">{doc.title}</h3>
@@ -454,14 +465,14 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
         {/* Left Text Section */}
         <div>
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
+          <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 text-center ${merriweather.className}`}>
             Read top articles from <br /> health experts
           </h2>
           <p className="text-gray-600 mt-3">
             Health articles that keep you informed about good health practices
             and achieve your goals.
           </p>
-          <button className="mt-6 bg-sky-500 hover:bg-sky-600 text-white font-semibold px-5 py-2 rounded">
+          <button className="mt-6 bg-green-600 hover:bg-sky-600 text-white font-semibold px-5 py-2 rounded">
             See all articles
           </button>
         </div>
@@ -469,17 +480,17 @@ export default function Home() {
         {/* Articles */}
         {articles.map((article, i) => (
           <div key={i} className="flex flex-col">
-            <div className="rounded-md overflow-hidden">
+            <div className="rounded-md overflow-hidden border border-green-600 shadow-lg shadow-green-300">
               <Image
                 src={article.img}
                 alt={article.title}
                 width={400}
                 height={250}
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover border border-green-600 shadow-xl shadow-green-300"
               />
             </div>
             <div className="mt-3">
-              <p className="text-sky-600 text-xs font-semibold uppercase tracking-wide">
+              <p className="text-green-600 text-xs font-semibold uppercase tracking-wide">
                 {article.category}
               </p>
               <h3 className="mt-1 text-lg font-semibold text-gray-900">
@@ -495,7 +506,7 @@ export default function Home() {
     </section>
 
      <section className="px-6 md:px-16 py-20 text-center relative overflow-hidden">
-      <h2 className="text-3xl md:text-4xl font-semibold text-gray-500">
+      <h2 className={`text-3xl md:text-4xl font-semibold text-green-600 ${merriweather.className}`}>
         What our users have to say
       </h2>
 
@@ -559,25 +570,26 @@ export default function Home() {
     </section>
 
      <section className="bg-gray-50 py-16 px-6 md:px-16">
-      <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
+      <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 ">
         {/* Left: Doctor Image */}
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
           <Image
             src="/5.png" 
             alt="Doctor Video Consultation"
             width={400}
             height={500}
-            className="rounded-lg"
+            className="rounded-lg "
             priority
           />
         </div>
 
         {/* Right: Text + Input + Buttons */}
         <div>
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-            Download the Sukoon app
-          </h2>
-          <p className="mt-4 text-gray-600 text-base md:text-lg max-w-md">
+         <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
+  <span className="text-green-600">Download</span> the Sukoon app
+</h2>
+
+          <p className={`mt-4 text-gray-600 text-base md:text-lg max-w-md ${roboto.className}`}>
             Access video consultation with India’s top doctors on the Sukoon app.
             Connect with doctors online, available 24/7, from the comfort of your
             home.
