@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect,useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 export default function Home() {
    const articles = [
     {
@@ -204,7 +205,7 @@ export default function Home() {
                   />
                 </svg>
               </Link>
-            <button className="border border-gray-300 rounded-md px-4 py-1 text-sm hover:shadow-sm">
+            <button className="border border-gray-300 rounded-md px-4 py-1 text-sm hover:shadow-sm cursor-pointer">
               Login / Signup
             </button>
           </div>
@@ -348,14 +349,14 @@ export default function Home() {
     </div>
 
     <div className="mt-4 md:mt-0">
-      <button className="border border-sky-500 text-sky-500 rounded-md px-6 py-2 hover:bg-sky-50 transition">
+      <button className="border border-sky-500 text-sky-500 rounded-md px-6 py-2 hover:bg-sky-50 transition cursor-pointer">
         View All Specialities
       </button>
     </div>
   </div>
 
   {/* Cards */}
-  <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 justify-items-center">
+  <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
     {[
       { img: "/2.1.png", title: "Period doubts or Pregnancy" },
       { img: "/2.2.png", title: "Acne, pimple or skin issues" },
@@ -364,7 +365,10 @@ export default function Home() {
       { img: "/2.5.png", title: "Child not feeling well" },
       { img: "/2.6.png", title: "Depression or anxiety" },
     ].map((item, i) => (
-      <div key={i} className="flex flex-col items-center text-center">
+      <div
+        key={i}
+        className="flex flex-col items-center text-center w-full"
+      >
         <div className="w-28 h-28 flex items-center justify-center rounded-full bg-[#F8FAFF] shadow-sm">
           <Image
             src={item.img}
@@ -374,7 +378,10 @@ export default function Home() {
             className="object-contain"
           />
         </div>
-        <p className="mt-4 text-sm font-medium text-gray-900">{item.title}</p>
+        {/* text is constrained so it aligns under circle */}
+        <p className="mt-4 text-sm font-medium text-gray-900 max-w-[120px]">
+          {item.title}
+        </p>
         <a
           href="#"
           className="mt-2 text-sm font-semibold text-sky-500 hover:underline"
@@ -385,6 +392,7 @@ export default function Home() {
     ))}
   </div>
 </section>
+
 
        <section className="px-6 md:px-35 py-12">
       <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 text-center">
