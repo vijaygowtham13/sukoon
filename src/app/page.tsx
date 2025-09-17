@@ -394,41 +394,45 @@ export default function Home() {
   </div>
 
   {/* Cards */}
-  <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
-    {[
-      { img: "/2.1.png", title: "Period doubts or Pregnancy" },
-      { img: "/2.2.png", title: "Acne, pimple or skin issues" },
-      { img: "/2.3.png", title: "Performance issues in bed" },
-      { img: "/2.4.png", title: "Cold, cough or fever" },
-      { img: "/2.5.png", title: "Child not feeling well" },
-      { img: "/2.6.png", title: "Depression or anxiety" },
-    ].map((item, i) => (
-      <div
-        key={i}
-        className="flex flex-col items-center text-center w-full"
+<div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
+  {[
+    { img: "/2.1.png", title: "Period doubts or Pregnancy" },
+    { img: "/2.2.png", title: "Acne, pimple or skin issues" },
+    { img: "/2.3.png", title: "Performance issues in bed" },
+    { img: "/2.4.png", title: "Cold, cough or fever" },
+    { img: "/2.5.png", title: "Child not feeling well" },
+    { img: "/2.6.png", title: "Depression or anxiety" },
+  ].map((item, i) => (
+    <div key={i} className="flex flex-col items-center text-center w-full">
+      <motion.div
+        className="w-28 h-28 flex items-center justify-center rounded-full shadow-xl shadow-green-300 shadow-sm"
+        animate={{ rotateY: 360 }} // side rotation
+        transition={{ repeat: Infinity, duration: 5, ease: "linear" }} // slow and continuous
+        style={{ perspective: 1000 }} // enables 3D rotation effect
       >
-        <div className="w-28 h-28 flex items-center justify-center rounded-full shadow-xl shadow-green-300 shadow-sm">
-          <Image
-            src={item.img}
-            alt={item.title}
-            width={70}
-            height={70}
-            className="object-contain w-22 h-22 object-cover"
-          />
-        </div>
-        {/* text is constrained so it aligns under circle */}
-        <p className="mt-4 text-sm font-medium text-gray-900 max-w-[120px]">
-          {item.title}
-        </p>
-        <a
-          href="#"
-          className="mt-2 text-sm font-semibold text-green-600 hover:underline"
-        >
-          CONSULT NOW
-        </a>
-      </div>
-    ))}
-  </div>
+        <Image
+          src={item.img}
+          alt={item.title}
+          width={70}
+          height={70}
+          className="object-contain w-22 h-22 object-cover"
+        />
+      </motion.div>
+
+      <p className="mt-4 text-sm font-medium text-gray-900 max-w-[120px]">
+        {item.title}
+      </p>
+      <a
+        href="#"
+        className="mt-2 text-sm font-semibold text-green-600 hover:underline"
+      >
+        CONSULT NOW
+      </a>
+    </div>
+  ))}
+</div>
+
+
 </section>
 
 
