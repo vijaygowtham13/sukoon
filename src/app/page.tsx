@@ -2,9 +2,26 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect,useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Roboto ,Merriweather} from "next/font/google";
+import { useEffect,useState ,useRef} from "react";
+import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
+import { Roboto , Merriweather} from "next/font/google";
+import { main } from "framer-motion/client";
+
+
+
+const cardVariants: Variants = {
+   hiddenLeft: { opacity: 1, y: -100 },
+  hiddenBottom: { opacity: 1, y: -100 },
+  hiddenRight: { opacity: 1, y: -100 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: { type: "spring", stiffness: 120, damping: 14, duration: 0.1 },
+}
+};
+
+
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -17,6 +34,13 @@ const merriweather = Merriweather({
 
 
 export default function Home() {
+
+ const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-100px" }); 
+
+
+
+
    const articles = [
     {
       img: "/4.1.jpeg",
@@ -283,68 +307,71 @@ export default function Home() {
       </section>
 
       {/* CARDS */}
-      <main className="max-w-3xl mx-auto px-6 mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Card 1 */}
-          <article className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 shadow-md bg-white">
-            <div className="h-48 flex items-center justify-center bg-blue-200 ">
-              <Image
-                src="/1.png"
-                alt="Instant Video Consultation"
-                width={150}
-                height={200}
-                className="object-contain"
-              />
-            </div>
-            <div className="px-6 py-6">
-              <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
-                Instant Video Consultation
-              </h3>
-              <p className="mt-2 text-gray-500 text-sm">Connect within 60 secs</p>
-            </div>
-          </article>
+       <main ref={ref} className="max-w-3xl mx-auto px-6 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        {/* Card 1 */}
+<motion.article
+  initial="hiddenBottom"
+  animate={inView ? { opacity: 1, y: 0, rotateY: 360 } : { opacity: 0, y: 100, rotateY: 0 }}
+  transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
+  whileHover={{ rotateY: 10, rotateX: -5, scale: 1.05 }}
+  style={{ perspective: "1000px" }}
+  className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
+>
+  <div className="h-48 flex items-center justify-center">
+    <Image src="/1.png" alt="Card" width={150} height={200} className="object-contain" />
+  </div>
+  <div className="px-6 py-6">
+    <h3 className="text-lg font-semibold text-gray-900">Instant Video Consultation</h3>
+    <p className="mt-2 text-gray-500 text-sm">Connect within 60 secs</p>
+  </div>
+</motion.article>
 
-          {/* Card 2 */}
-          <article className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 shadow-md bg-white">
-            <div className="h-48 flex items-center justify-center bg-[#4DB3AD]">
-              <Image
-                src="/2.png"
-                alt="Find Doctors Near You"
-                width={180}
-                height={160}
-                className="object-contain"
-              />
-            </div>
-            <div className="px-6 py-6">
-              <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
-                Find Doctors Near You
-              </h3>
-              <p className="mt-2 text-gray-500 text-sm">
-                Confirmed appointments
-              </p>
-            </div>
-          </article>
 
-          {/* Card 3 */}
-          <article className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 shadow-md bg-white">
-            <div className="h-48 flex items-center justify-center bg-[#EDE7FF]">
-              <Image
-                src="/3.png"
-                alt="Surgeries"
-                width={200}
-                height={180}
-                className="object-contain"
-              />
-            </div>
-            <div className="px-6 py-6">
-              <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>Surgeries</h3>
-              <p className="mt-2 text-gray-500 text-sm">
-                Safe and trusted surgery centers
-              </p>
-            </div>
-          </article>
-        </div>
-      </main>
+
+        {/* Card 2 */}
+       <motion.article
+  initial="hiddenBottom"
+  animate={inView ? { opacity: 1, y: 0, rotateY: 360 } : { opacity: 0, y: 100, rotateY: 0 }}
+  transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
+  whileHover={{ rotateY: 10, rotateX: -5, scale: 1.05 }}
+  style={{ perspective: "1000px" }}
+  className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
+>
+          <div className="h-48 flex items-center justify-center bg-[#4DB3AD]">
+            <Image src="/2.png" alt="Find Doctors Near You" width={180} height={160} />
+          </div>
+          <div className="px-6 py-6">
+            <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
+              Find Doctors Near You
+            </h3>
+            <p className="mt-2 text-gray-500 text-sm">Confirmed appointments</p>
+          </div>
+        </motion.article>
+
+        {/* Card 3 */}
+        <motion.article
+  initial="hiddenBottom"
+  animate={inView ? { opacity: 1, y: 0, rotateY: 360 } : { opacity: 0, y: 100, rotateY: 0 }}
+  transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
+  whileHover={{ rotateY: 10, rotateX: -5, scale: 1.05 }}
+  style={{ perspective: "1000px" }}
+  className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
+>
+          <div className="h-48 flex items-center justify-center bg-[#EDE7FF]">
+            <Image src="/3.png" alt="Surgeries" width={200} height={180} />
+          </div>
+          <div className="px-6 py-6">
+            <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
+              Surgeries
+            </h3>
+            <p className="mt-2 text-gray-500 text-sm">Safe and trusted surgery centers</p>
+          </div>
+        </motion.article>
+
+      </div>
+    </main>
 
       {/* CONSULT TOP DOCTORS SECTION */}
  <section className="px-6 md:px-40 py-16">
