@@ -319,7 +319,7 @@ export default function Home() {
   style={{ perspective: "1000px" }}
   className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
 >
-  <div className="h-48 flex items-center justify-center">
+  <div className="h-48 flex items-center justify-center bg-[#AFCFED] ">
     <Image src="/1.png" alt="Card" width={150} height={200} className="object-contain" />
   </div>
   <div className="px-6 py-6">
