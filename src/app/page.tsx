@@ -36,6 +36,24 @@ const merriweather = Merriweather({
 
 export default function Home() {
 
+ const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 150) {
+        setIsCollapsed(true);
+      } else {
+        setIsCollapsed(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
+
+
+
  const ref = useRef(null);
   const inView = useInView(ref, { once: false, margin: "-100px" }); 
 
@@ -100,11 +118,11 @@ export default function Home() {
       user: "Jyothi Bhatia",
     },
     {
-      text: "Very helpful. Far easier than doing same things on computer. Allows quick and easy search with speedy booking. Even maintains history of doctors visited.",
+      text: "Very helpful. Far easier than doing same things on computer. Allows quick and easy search with speedy booking. Even maintains history of Consultants visited.",
       user: "Amit Sharma",
     },
     {
-      text: "Smooth experience, saves time and effort. Great way to find the right doctor and manage appointments with ease.",
+      text: "Smooth experience, saves time and effort. Great way to find the right Consultant and manage appointments with ease.",
       user: "Ravi Mehra",
     },
   ];
@@ -150,6 +168,9 @@ export default function Home() {
   };
 
   return (
+
+
+    
     <div className="min-h-screen bg-white text-gray-800 font-sans">
       {/* NAVBAR */}
       <header className="border-b border-gray-200">
@@ -438,6 +459,30 @@ export default function Home() {
     </div>
   ))}
 </div>
+<div className="fixed right-6 bottom-12 z-50">
+  <button
+    className={`flex items-center gap-2 bg-green-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300 ${
+      isCollapsed ? "px-3 py-3" : "px-4 py-3"
+    }`}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M7.5 8.25h9m-9 3.75h6M21 12c0 4.97-4.03 9-9 9-1.53 0-2.97-.38-4.22-1.06L3 21l1.06-4.78C3.38 14.97 3 13.53 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9z"
+      />
+    </svg>
+
+    {!isCollapsed && <span>Instant Chat with an Expert</span>}
+  </button>
+</div>
 
 
 </section>
@@ -661,7 +706,7 @@ export default function Home() {
     whileHover={{ x: 0 }} // stop shaking when hovered (optional)
   >
     <Image
-      src="/5.png"
+      src="/5.jpeg"
       alt="Doctor Video Consultation"
       width={400}
       height={500}
@@ -674,12 +719,12 @@ export default function Home() {
         {/* Right: Text + Input + Buttons */}
         <div>
          <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
-  the Sukoon app
+  <span className="text-green-600">Download </span>the Sukoon app
 </h2>
 
           <p className={`mt-4 text-gray-600 text-base md:text-lg max-w-md ${roboto.className}`}>
-            Access video consultation with India’s top doctors on the Sukoon app.
-            Connect with doctors online, available 24/7, from the comfort of your
+            Access video consultation with India’s top Consultants on the Sukoon app.
+            Connect with Consultants online, available 24/7, from the comfort of your
             home.
           </p>
 
@@ -741,7 +786,7 @@ export default function Home() {
         <div>
           <h3 className="font-semibold mb-4">For patients</h3>
           <ul className="space-y-2 text-sm text-gray-200">
-            <li><a href="#">Search for doctors</a></li>
+            <li><a href="#">Search for Consultants</a></li>
             <li><a href="#">Search for clinics</a></li>
             <li><a href="#">Search for hospitals</a></li>
             <li><a href="#">Sukoon Plus</a></li>
@@ -756,7 +801,7 @@ export default function Home() {
 
         {/* For Doctors + Clinics */}
         <div>
-          <h3 className="font-semibold mb-4">For doctors</h3>
+          <h3 className="font-semibold mb-4">For Consultants</h3>
           <ul className="space-y-2 text-sm text-gray-200">
             <li><a href="#">Sukoon Profile</a></li>
           </ul>
