@@ -69,44 +69,30 @@ export default function Home() {
   const doctors = [
     {
       img: "/3.1.jpg",
-      title: "General surgeon",
-      desc: "Need to get operated? Find the right surgeon",
+      title: "Dietitian",
+      desc: "For Nutrition, Weight Loss and Diet Planning",
     },
     {
       img: "/3.2.jpg",
-      title: "Orthopedist",
-      desc: "For Bone and Joints issues, spinal injuries and more",
+      title: "Nutritionist",
+      desc: "Get Expert Advice on Diet and Wellness",
     },
     {
       img: "/3.3.jpg",
-      title: "General physician",
-      desc: "Find the right family doctor in your neighborhood",
+      title: "Physiotherapist",
+      desc: "Healthy Movement",
     },
     {
       img: "/3.4.jpg",
-      title: "Pediatrician",
-      desc: "Child Specialists and Doctors for Infant",
+      title: "Sleep Specialist",
+      desc: "Restful Nights, Energized Days",
     },
     {
       img: "/3.5.jpg",
-      title: "Dentist",
-      desc: "Teething troubles? Schedule a dental checkup",
+      title: "Child psychologist",
+      desc: "Nurturing Young Minds",
     },
-    {
-      img: "/3.6.jpg",
-      title: "Gynecologist/Obstetrician",
-      desc: "Explore for women’s health, pregnancy and infertility treatments",
-    },
-    {
-      img: "/3.7.jpg",
-      title: "Dietitian/Nutrition",
-      desc: "Get guidance on eating right, weight management and sports nutrition",
-    },
-    {
-      img: "/3.8.jpg",
-      title: "Physiotherapist",
-      desc: "Pulled a muscle? Get it treated by a trained physiotherapist",
-    },
+ 
   ];
     const testimonialsData = [
     {
@@ -179,13 +165,13 @@ export default function Home() {
 
             <nav className="hidden md:flex gap-6 text-base font-extrabold text-gray-700">
               <Link href="#" className={roboto.className}>
-                Find Doctors
+                Aboutus
               </Link>
               <Link href="#" className={roboto.className}>
-                Video Consult
+                Community
               </Link>
               <Link href="#" className={roboto.className}>
-                Surgeries
+                Tips
               </Link>
             </nav>
           </div>
@@ -200,7 +186,7 @@ export default function Home() {
                 href="#"
                 className="flex items-center gap-1 hover:text-gray-900"
               >
-                For Corporates
+                Instant Chat
                 <svg
                   className="w-3 h-3 text-gray-500"
                   viewBox="0 0 20 20"
@@ -218,7 +204,7 @@ export default function Home() {
                 href="#"
                 className="flex items-center gap-1 hover:text-gray-900"
               >
-                For Providers
+                Stages
                 <svg
                   className="w-3 h-3 text-gray-500"
                   viewBox="0 0 20 20"
@@ -322,7 +308,7 @@ export default function Home() {
           </svg>
           <input
             className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
-            placeholder="Search doctors, clinics, hospitals, etc."
+            placeholder="Search related consultants etc."
           />
         </div>
       </motion.div>
@@ -342,11 +328,11 @@ export default function Home() {
   className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
 >
   <div className="h-48 flex items-center justify-center bg-[#AFCFED] ">
-    <Image src="/1.png" alt="Card" width={150} height={200} className="object-contain" />
+    <Image src="/1.jpg" alt="Card" width={180} height={200} className="object-contain" />
   </div>
   <div className="px-6 py-6">
-    <h3 className="text-lg font-semibold text-gray-900">Instant Video Consultation</h3>
-    <p className="mt-2 text-gray-500 text-sm">Connect within 60 secs</p>
+    <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>Top Dietition</h3>
+    <p className="mt-2 text-gray-500 text-sm">Expert in nutrition and diet planning</p>
   </div>
 </motion.article>
 
@@ -361,14 +347,14 @@ export default function Home() {
   style={{ perspective: "1000px" }}
   className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
 >
-          <div className="h-48 flex items-center justify-center bg-[#4DB3AD]">
-            <Image src="/2.png" alt="Find Doctors Near You" width={180} height={160} />
+          <div className="h-48 flex items-center justify-center bg-[#4DB3AE]">
+            <Image src="/2.jpeg" alt="Find Doctors Near You" width={180} height={200} />
           </div>
           <div className="px-6 py-6">
             <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
-              Find Doctors Near You
+              Nutritionist Connect
             </h3>
-            <p className="mt-2 text-gray-500 text-sm">Confirmed appointments</p>
+            <p className="mt-2 text-gray-500 text-sm">Expert in nutrition and diet planning</p>
           </div>
         </motion.article>
 
@@ -382,13 +368,13 @@ export default function Home() {
   className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
 >
           <div className="h-48 flex items-center justify-center bg-[#EDE7FF]">
-            <Image src="/3.png" alt="Surgeries" width={200} height={180} />
+            <Image src="/3.0.webp" alt="Surgeries" width={180} height={200} />
           </div>
           <div className="px-6 py-6">
             <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
-              Surgeries
+              Physiotherapist
             </h3>
-            <p className="mt-2 text-gray-500 text-sm">Safe and trusted surgery centers</p>
+            <p className="mt-2 text-gray-500 text-sm">Healthy Movement</p>
           </div>
         </motion.article>
 
@@ -401,16 +387,16 @@ export default function Home() {
   <div className="flex flex-col md:flex-row md:items-center md:justify-between text-center md:text-left">
     <div>
       <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
-        Consult top doctors online for any health concern
+        Practical Tips
       </h2>
       <p className="text-gray-600 mt-2">
-        Private online consultations with verified doctors in all specialists
+        Get expert advice on various health topics
       </p>
     </div>
 
     <div className="mt-4 md:mt-0">
       <button className="border border-green-600 text-green-600 rounded-md px-6 py-2 hover:bg-green-50 transition cursor-pointer">
-        View All Specialities
+        View All Tips
       </button>
     </div>
   </div>
@@ -418,12 +404,12 @@ export default function Home() {
   {/* Cards */}
 <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
   {[
-    { img: "/2.1.png", title: "Period doubts or Pregnancy" },
-    { img: "/2.2.png", title: "Acne, pimple or skin issues" },
-    { img: "/2.3.png", title: "Performance issues in bed" },
-    { img: "/2.4.png", title: "Cold, cough or fever" },
-    { img: "/2.5.png", title: "Child not feeling well" },
-    { img: "/2.6.png", title: "Depression or anxiety" },
+    {  title: "Hydration Tips" },
+    {  title: "Sleep Hygiene" },
+    {  title: "Diet & Nutrition" },
+    {  title: "Emergency Signs" },
+    {  title: "Positive Parenting" },
+    {  title: "Self-care for Parents" },
   ].map((item, i) => (
     <div key={i} className="flex flex-col items-center text-center w-full">
       <motion.div
@@ -433,12 +419,11 @@ export default function Home() {
         style={{ perspective: 1000 }} // enables 3D rotation effect
       >
         <Image
-          src={item.img}
+          
           alt={item.title}
           width={70}
           height={70}
-          className="object-contain w-22 h-22 object-cover"
-        />
+          className="object-contain w-22 h-22 object-cover" src={""}        />
       </motion.div>
 
       <p className="mt-4 text-sm font-medium text-gray-900 max-w-[120px]">
@@ -448,7 +433,7 @@ export default function Home() {
         href="#"
         className="mt-2 text-sm font-semibold text-green-600 hover:underline"
       >
-        CONSULT NOW
+      
       </a>
     </div>
   ))}
@@ -471,7 +456,7 @@ export default function Home() {
         style={{ perspective: "1000px" }}
         className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}
       >
-        Book an appointment for an in-clinic consultation
+        Schedule a Personalized Consultation with Trusted Experts
       </motion.h1>
 
       {/* Paragraph */}
@@ -487,7 +472,7 @@ export default function Home() {
         style={{ perspective: "1000px" }}
         className="text-gray-600 mt-2"
       >
-        Find experienced doctors across all specialties
+        Connect with Verified Specialists in Pregnancy, Childcare & Family Wellness
       </motion.p>
 
       {/* Carousel */}
