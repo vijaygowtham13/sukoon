@@ -68,22 +68,22 @@ export default function Home() {
   ];
   const doctors = [
     {
-      img: "/3.1.jpg",
+      img: "/3.1.webp",
       title: "Dietitian",
       desc: "For Nutrition, Weight Loss and Diet Planning",
     },
     {
-      img: "/3.2.jpg",
+      img: "/3.2.webp",
       title: "Nutritionist",
       desc: "Get Expert Advice on Diet and Wellness",
     },
     {
-      img: "/3.3.jpg",
+      img: "/3.3.jpeg",
       title: "Physiotherapist",
       desc: "Healthy Movement",
     },
     {
-      img: "/3.4.jpg",
+      img: "/3.4.jpeg",
       title: "Sleep Specialist",
       desc: "Restful Nights, Energized Days",
     },
