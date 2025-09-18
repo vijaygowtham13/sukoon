@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useEffect,useState ,useRef} from "react";
 import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
 import { Roboto , Merriweather} from "next/font/google";
-import { main } from "framer-motion/client";
+import { div, main } from "framer-motion/client";
+
 
 
 
@@ -38,7 +39,16 @@ export default function Home() {
  const ref = useRef(null);
   const inView = useInView(ref, { once: false, margin: "-100px" }); 
 
+  
 
+  const headingRef = useRef(null);
+  const headingInView = useInView(headingRef, { once: false, margin: "-100px" });
+
+  const paraRef = useRef(null);
+  const paraInView = useInView(paraRef, { once: false, margin: "-100px" });
+
+ const carouselRef = useRef(null);
+  const carouselInView = useInView(carouselRef, { once: false, margin: "-100px" });
 
 
    const articles = [
@@ -246,65 +256,77 @@ export default function Home() {
       </header>
 
       {/* SEARCH BAR */}
-      <section className="max-w-xl mx-40 px-2 mt-8">
-        <div className="flex border border-green-600 rounded-md overflow-hidden shadow-sm h-10">
-          {/* location */}
-          <div className="flex items-center gap-3 px-4 border-r border-green-600 bg-white w-56">
-            <svg
-              className="w-4 h-4 text-green-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
-              />
-              <path
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 11.5c0 6.5-9 11-9 11s-9-4.5-9-11a9 9 0 1118 0z"
-              />
-            </svg>
-            <input
-              className="w-full outline-none text-sm text-green-300 placeholder-green-600"
-              placeholder="Visakhapatnam"
+  <section className="max-w-xl mx-40 px-2 mt-8">
+      <motion.div
+        // 👇 Shake animation loop
+        animate={{
+          x: [0, -5, 5, -5, 5, 0],
+        }}
+        transition={{
+          duration: 0.8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        // 👇 Stops vibrating on hover/focus
+        whileHover={{ x: 0 }}
+        whileTap={{ x: 0 }}
+        className="flex border border-green-600 rounded-md overflow-hidden shadow-sm h-10"
+      >
+        {/* location */}
+        <div className="flex items-center gap-3 px-4 border-r border-green-600 bg-white w-56">
+          <svg
+            className="w-4 h-4 text-green-600"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
             />
-          </div>
-
-        
-          {/* search */}
-<div className="flex items-center px-4 flex-1 bg-green-600">
-  <svg
-    className="w-4 h-4 text-white mr-3"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-  >
-    <path
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M21 21l-4.35-4.35"
-    />
-    <path
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M11 18a7 7 0 100-14 7 7 0 000 14z"
-    />
-  </svg>
-  <input
-    className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
-    placeholder="Search doctors, clinics, hospitals, etc."
-  />
-</div>
-
+            <path
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 11.5c0 6.5-9 11-9 11s-9-4.5-9-11a9 9 0 1118 0z"
+            />
+          </svg>
+          <input
+            className="w-full outline-none text-sm text-green-300 placeholder-green-600"
+            placeholder="Visakhapatnam"
+          />
         </div>
-      </section>
+
+        {/* search */}
+        <div className="flex items-center px-4 flex-1 bg-green-600">
+          <svg
+            className="w-4 h-4 text-white mr-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-4.35-4.35"
+            />
+            <path
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M11 18a7 7 0 100-14 7 7 0 000 14z"
+            />
+          </svg>
+          <input
+            className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
+            placeholder="Search doctors, clinics, hospitals, etc."
+          />
+        </div>
+      </motion.div>
+    </section>
 
       {/* CARDS */}
        <main ref={ref} className="max-w-3xl mx-auto px-6 mt-12">
@@ -437,58 +459,96 @@ export default function Home() {
 
 
        <section className="px-6 md:px-35 py-12 ">
-      <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
+       <motion.h1
+        ref={headingRef}
+        initial={{ opacity: 0, y: 100, rotateY: 0 }}
+        animate={
+          headingInView
+            ? { opacity: 1, y: 0, rotateY: 360 }
+            : { opacity: 0, y: 100, rotateY: 0 }
+        }
+        transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
+        style={{ perspective: "1000px" }}
+        className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}
+      >
         Book an appointment for an in-clinic consultation
-      </h2>
-      <p className="text-gray-600 mt-2">
+      </motion.h1>
+
+      {/* Paragraph */}
+      <motion.p
+        ref={paraRef}
+        initial={{ opacity: 0, y: 100, rotateY: 0 }}
+        animate={
+          paraInView
+            ? { opacity: 1, y: 0, rotateY: 360 }
+            : { opacity: 0, y: 100, rotateY: 0 }
+        }
+        transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
+        style={{ perspective: "1000px" }}
+        className="text-gray-600 mt-2"
+      >
         Find experienced doctors across all specialties
-      </p>
+      </motion.p>
 
       {/* Carousel */}
       <div className="relative mt-10">
         {/* Left Button */}
-        <button
-          onClick={handlePrev}
-          disabled={index === 0}
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
-        >
-          <span className="text-xl">‹</span>
-        </button>
+           <motion.div
+      ref={carouselRef}
+      initial={{ opacity: 0, y: 100, rotateY: 0 }}
+      animate={
+        carouselInView
+          ? { opacity: 1, y: 0, rotateY: 360 }
+          : { opacity: 0, y: 100, rotateY: 0 }
+      }
+      transition={{ type: "spring", stiffness: 80, damping: 20, duration: 2.5 }}
+      style={{ perspective: "1000px" }}
+      className="relative mt-10"
+    >
+      {/* Left Button */}
+      <button
+        onClick={handlePrev}
+        disabled={index === 0}
+        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
+      >
+        <span className="text-xl">‹</span>
+      </button>
 
-        {/* Cards */}
-        <div className="overflow-hidden ">
-          <div
-            className="flex transition-transform duration-500 ease-in-out "
-            style={{ transform: `translateX(-${index * 25}%)` }}
-          >
-            {doctors.map((doc, i) => (
-              <div key={i} className="w-1/4 flex-shrink-0 px-3 text-center  ">
-                <div className="rounded-xl overflow-hidden shadow-sm bg-white">
-                  <Image
-                    src={doc.img}
-                    alt={doc.title}
-                    width={300}
-                    height={200}
-                    className="w-full h-48 object-cover border border-green-600"
-                  />
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900">{doc.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{doc.desc}</p>
-                  </div>
+      {/* Cards */}
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${index * 25}%)` }}
+        >
+          {doctors.map((doc, i) => (
+            <div key={i} className="w-1/4 flex-shrink-0 px-3 text-center">
+              <div className="rounded-xl overflow-hidden shadow-sm bg-white">
+                <Image
+                  src={doc.img}
+                  alt={doc.title}
+                  width={300}
+                  height={200}
+                  className="w-full h-48 object-cover border border-green-600"
+                />
+                <div className="p-4">
+                  <h3 className="font-semibold text-gray-900">{doc.title}</h3>
+                  <p className="text-sm text-gray-600 mt-1">{doc.desc}</p>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+      </div>
 
-        {/* Right Button */}
-        <button
-          onClick={handleNext}
-          disabled={index >= doctors.length - 4}
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
-        >
-          <span className="text-xl">›</span>
-        </button>
+      {/* Right Button */}
+      <button
+        onClick={handleNext}
+        disabled={index >= doctors.length - 4}
+        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
+      >
+        <span className="text-xl">›</span>
+      </button>
+    </motion.div>
       </div>
     </section>
 
@@ -604,20 +664,32 @@ export default function Home() {
       <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 ">
         {/* Left: Doctor Image */}
         <div className="flex justify-center ">
-          <Image
-            src="/5.png" 
-            alt="Doctor Video Consultation"
-            width={400}
-            height={500}
-            className="rounded-lg "
-            priority
-          />
+           <motion.div
+    animate={{
+      x: [0, -6, 6, -6, 6, 0],  // side-to-side shake
+    }}
+    transition={{
+      duration: 0.5,   // speed of one shake cycle
+      repeat: Infinity, // keep shaking
+      ease: "easeInOut",
+    }}
+    whileHover={{ x: 0 }} // stop shaking when hovered (optional)
+  >
+    <Image
+      src="/5.png"
+      alt="Doctor Video Consultation"
+      width={400}
+      height={500}
+      className="rounded-lg"
+      priority
+    />
+  </motion.div>
         </div>
 
         {/* Right: Text + Input + Buttons */}
         <div>
          <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
-  <span className="text-green-600">Download</span> the Sukoon app
+  the Sukoon app
 </h2>
 
           <p className={`mt-4 text-gray-600 text-base md:text-lg max-w-md ${roboto.className}`}>
