@@ -444,10 +444,10 @@ export default function Home() {
           alt={item.title}
           width={70}
           height={70}
-          className="object-contain w-22 h-22 object-cover" src={""}        />
+          className="object-contain w-30 h-30 object-cover" src={""}        />
       </motion.div>
 
-      <p className="mt-4 text-sm font-medium text-gray-900 max-w-[120px]">
+      <p className="mt-10 text-sm font-medium text-gray-900 max-w-[120px]">
         {item.title}
       </p>
       <a
