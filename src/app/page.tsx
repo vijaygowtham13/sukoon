@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect,useState ,useRef} from "react";
 import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
 import { Roboto , Merriweather} from "next/font/google";
-import { div, main } from "framer-motion/client";
+import { div, img, main } from "framer-motion/client";
 
 
 
@@ -73,7 +73,7 @@ export default function Home() {
     {
       img: "/4.1.jpeg",
       category: "CORONAVIRUS",
-      title: "12 Coronavirus Myths and Facts That You Should Be Aware Of",
+      title: "How to Boost Your Child's Immunity During the Pandemic",
       author: "Dr. Diana Borgio",
     },
     {
@@ -88,12 +88,12 @@ export default function Home() {
     {
       img: "/3.1.webp",
       title: "Dietitian",
-      desc: "For Nutrition, Weight Loss and Diet Planning",
+      desc: "For Nutrition, Weight Loss",
     },
     {
       img: "/3.2.webp",
       title: "Nutritionist",
-      desc: "Get Expert Advice on Diet and Wellness",
+      desc: "Get Expert Advice on Diet",
     },
     {
       img: "/3.3.jpeg",
@@ -169,29 +169,29 @@ export default function Home() {
 
   return (
 
+ <div className="min-h-screen bg-pink-50 text-gray-800 font-sans bg-[#E8F5E9]">
 
-    
-    <div className="min-h-screen bg-white text-gray-800 font-sans">
+
       {/* NAVBAR */}
-      <header className="border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+      <header className="border-b border-green-600  ">
+        <div className="fixed top-4 left-0 right-0 z-50 flex justify-between items-center px-4 md:px-5 py-4 border border-white/10 rounded-2xl mx-4 backdrop-blur-sm bg-white/5">
           {/* left: logo + main links */}
           <div className="flex items-center">
             <div className="flex items-center mr-20">
-              <span className={`text-3xl font-bold text-green-600 tracking-tight ${merriweather.className}`}>
+              <span className={`text-3xl font-bold text-green-700 tracking-tight ${merriweather.className}`}>
                 Sukoon
               </span>
               
             </div>
 
             <nav className="hidden md:flex gap-6 text-base font-extrabold text-gray-700">
-              <Link href="#" className={roboto.className}>
-                Aboutus
+              <Link href="#" className={`${roboto.className} text-black`}>
+                AboutUs
               </Link>
-              <Link href="#" className={roboto.className}>
+              <Link href="#" className={`${roboto.className} text-black`}>
                 Community
               </Link>
-              <Link href="#" className={roboto.className}>
+              <Link href="#" className={`${roboto.className} text-black`}>
                 Tips
               </Link>
             </nav>
@@ -263,7 +263,7 @@ export default function Home() {
       </header>
 
       {/* SEARCH BAR */}
-  <section className="max-w-xl mx-40 px-2 mt-8">
+  <section className="max-w-xl mx-40 px-2 mt-25">
       <motion.div
         // 👇 Shake animation loop
         animate={{
@@ -425,12 +425,12 @@ export default function Home() {
   {/* Cards */}
 <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
   {[
-    {  title: "Hydration Tips" },
-    {  title: "Sleep Hygiene" },
-    {  title: "Diet & Nutrition" },
-    {  title: "Emergency Signs" },
-    {  title: "Positive Parenting" },
-    {  title: "Self-care for Parents" },
+    { img: "/n1.png", title: "Hydration Tips" },
+    { img: "/n2.png", title: "Sleep Hygiene" },
+    { img: "/n3.png", title: "Diet & Nutrition" },
+    { img: "/n4.png", title: "Emergency Signs" },
+    { img: "/n5.png", title: "Positive Parenting" },
+    { img: "/n6.png", title: "Self-care for Parents" },
   ].map((item, i) => (
     <div key={i} className="flex flex-col items-center text-center w-full">
       <motion.div
@@ -440,11 +440,12 @@ export default function Home() {
         style={{ perspective: 1000 }} // enables 3D rotation effect
       >
         <Image
-          
+          src={item.img}
           alt={item.title}
-          width={70}
-          height={70}
-          className="object-contain w-30 h-30 object-cover" src={""}        />
+          width={50}
+          height={50}
+          className="object-contain w-20 h-20 object-cover"
+        />
       </motion.div>
 
       <p className="mt-10 text-sm font-medium text-gray-900 max-w-[120px]">
@@ -558,7 +559,7 @@ export default function Home() {
                   alt={doc.title}
                   width={300}
                   height={200}
-                  className="w-full h-48 object-cover border border-green-600"
+                  className="w-full h-48 rounded-2xl overflow-hidden border border-green-600 shadow-xl  bg-white"
                 />
                 <div className="p-4">
                   <h3 className="font-semibold text-gray-900">{doc.title}</h3>
@@ -601,7 +602,7 @@ export default function Home() {
         {/* Articles */}
         {articles.map((article, i) => (
           <div key={i} className="flex flex-col">
-            <div className="rounded-md overflow-hidden border border-green-600 shadow-lg shadow-green-300">
+            <div className="w-full h-48 rounded-2xl overflow-hidden border border-green-600 shadow-xl  bg-white">
               <Image
                 src={article.img}
                 alt={article.title}
