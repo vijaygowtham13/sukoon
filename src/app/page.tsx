@@ -170,7 +170,7 @@ export default function Home() {
   return (
 
  <div className="min-h-screen bg-pink-50 text-gray-800 font-sans bg-[#E8F5E9]">
-
+<div className="relative bg-green-200 overflow-hidden pb-50">
 
       {/* NAVBAR */}
       <header className="border-b border-green-600  ">
@@ -185,13 +185,13 @@ export default function Home() {
             </div>
 
             <nav className="hidden md:flex gap-6 text-base font-extrabold text-gray-700">
-              <Link href="#" className={`${roboto.className} text-black`}>
+              <Link href="#" className={`${merriweather.className} text-black`}>
                 AboutUs
               </Link>
-              <Link href="#" className={`${roboto.className} text-black`}>
+              <Link href="#" className={`${merriweather.className} text-black`}>
                 Community
               </Link>
-              <Link href="#" className={`${roboto.className} text-black`}>
+              <Link href="#" className={`${merriweather.className} text-black`}>
                 Tips
               </Link>
             </nav>
@@ -401,6 +401,20 @@ export default function Home() {
 
       </div>
     </main>
+      <svg
+    className="absolute inset-x-0 bottom-0 w-full h-70"
+    viewBox="0 0 1440 320"
+    preserveAspectRatio="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    
+    <path
+      fill="green"
+      d="M0 64 C360 192 1080 192 1440 64 L1440 320 L0 320 Z"
+    />
+  </svg>
+    </div>
 
       {/* CONSULT TOP DOCTORS SECTION */}
  <section className="px-6 md:px-40 py-16">
