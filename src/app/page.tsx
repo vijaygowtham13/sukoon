@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect,useState ,useRef} from "react";
 import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
 import { Roboto , Merriweather} from "next/font/google";
-import { div, img, main } from "framer-motion/client";
+import { div, img, li, main } from "framer-motion/client";
 
 
 
@@ -506,11 +506,11 @@ export default function Home() {
        <section className="px-6 md:px-35 py-12 ">
        <motion.h1
         ref={headingRef}
-        initial={{ opacity: 0, y: 100, rotateY: 0 }}
+        initial={{ opacity: 0, y: 10, rotateY: 0 }}
         animate={
           headingInView
             ? { opacity: 1, y: 0, rotateY: 360 }
-            : { opacity: 0, y: 100, rotateY: 0 }
+            : { opacity: 0, y: 10, rotateY: 0 }
         }
         transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
         style={{ perspective: "1000px" }}
@@ -705,6 +705,10 @@ export default function Home() {
       </div>
     </section>
 
+
+
+
+
      <section className="bg-gray-50 py-16 px-6 md:px-16">
       <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 ">
         {/* Left: Doctor Image */}
@@ -783,12 +787,25 @@ export default function Home() {
       </div>
     </section>
 
-     <footer className="bg-green-600 text-white py-12 px-6 md:px-16">
+
+     <section className="bg-green-50 py-16">
+      <div className="max-w-3xl mx-auto text-center px-6">
+        <h2 className="text-3xl font-bold text-green-900">Join Our Community</h2>
+        <p className="mt-4 text-green-700">
+          Connect with healthcare experts, share experiences, and grow together.
+        </p>
+        <button className="mt-6 px-6 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+          Join Community
+        </button>
+      </div>
+    </section>
+
+     <footer className="bg-green-50 text-black py-12 px-6 md:px-16">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
         {/* Sukoon Column */}
         <div>
           <h3 className="font-semibold mb-4">Sukoon</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+          <ul className="space-y-2 text-sm text-200">
             <li><a href="#">About</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Careers</a></li>
@@ -800,7 +817,7 @@ export default function Home() {
         {/* For Patients */}
         <div>
           <h3 className="font-semibold mb-4">For patients</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+          <ul className="space-y-2 text-sm text-black">
             <li><a href="#">Search for Consultants</a></li>
             <li><a href="#">Search for clinics</a></li>
             <li><a href="#">Search for hospitals</a></li>
@@ -817,11 +834,11 @@ export default function Home() {
         {/* For Doctors + Clinics */}
         <div>
           <h3 className="font-semibold mb-4">For Consultants</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+          <ul className="space-y-2 text-sm text-black">
             <li><a href="#">Sukoon Profile</a></li>
           </ul>
           <h3 className="font-semibold mt-6 mb-4">For clinics</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+          <ul className="space-y-2 text-sm text-black">
             <li><a href="#">Ray by Sukoon</a></li>
             <li><a href="#">Sukoon Reach</a></li>
             <li><a href="#">Ray Tab</a></li>
@@ -832,7 +849,7 @@ export default function Home() {
         {/* For Hospitals + Corporates */}
         <div>
           <h3 className="font-semibold mb-4">For hospitals</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+          <ul className="space-y-2 text-sm text-black">
             <li><a href="#">Insta by Sukoon</a></li>
             <li><a href="#">Qikwell by Sukoon</a></li>
             <li><a href="#">Sukoon Profile</a></li>
@@ -840,7 +857,7 @@ export default function Home() {
             <li><a href="#">Sukoon Drive</a></li>
           </ul>
           <h3 className="font-semibold mt-6 mb-4">For Corporates</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+          <ul className="space-y-2 text-sm text-black">
             <li><a href="#">Wellness Plans</a></li>
           </ul>
         </div>
@@ -848,7 +865,7 @@ export default function Home() {
         {/* More */}
         <div>
           <h3 className="font-semibold mb-4">More</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+          <ul className="space-y-2 text-sm text-black">
             <li><a href="#">Help</a></li>
             <li><a href="#">Developers</a></li>
             <li><a href="#">Privacy Policy</a></li>
@@ -862,7 +879,7 @@ export default function Home() {
         {/* Social */}
         <div>
           <h3 className="font-semibold mb-4">Social</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+          <ul className="space-y-2 text-sm text-black">
             <li><a href="#">Facebook</a></li>
             <li><a href="#">Twitter</a></li>
             <li><a href="#">LinkedIn</a></li>
@@ -876,9 +893,9 @@ export default function Home() {
       <div className="mt-12 border-t border-gray-600 pt-6 text-center">
         <div className="flex justify-center items-center space-x-2 mb-2">
           <span className="w-3 h-3 rounded-full bg-green-400"></span>
-          <span className="text-2xl font-bold">Sukoon</span>
+          <span className="text-2xl font-bold text-green-600">Sukoon</span>
         </div>
-        <p className="text-sm text-gray-300">
+        <p className="text-sm text-black">
           Copyright © 2025, Sukoon. All rights reserved.
         </p>
       </div>
