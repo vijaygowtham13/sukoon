@@ -305,7 +305,7 @@ export default function Home() {
           </svg>
           <input
             className="w-full outline-none text-sm text-green-300 placeholder-green-600"
-            placeholder="Visakhapatnam"
+            placeholder="Dubai"
           />
         </div>
 
