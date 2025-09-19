@@ -6,7 +6,7 @@ import { useEffect,useState ,useRef} from "react";
 import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
 import { Roboto , Merriweather} from "next/font/google";
 import { div, img, li, main } from "framer-motion/client";
-import LightRays from './LightRays';
+
 
 
 
@@ -172,20 +172,7 @@ export default function Home() {
 
  <div className="min-h-screen bg-pink-50 text-gray-800 font-sans bg-[#E8F5E9]">
 <div className="relative bg-green-200 overflow-hidden pb-50">
-  <div className="absolute inset-0">
-  <LightRays
-    raysOrigin="top-center"
-    raysColor="green-600"
-    raysSpeed={5.5}
-    lightSpread={0.8}
-    rayLength={1.2}
-    followMouse={true}
-    mouseInfluence={0.1}
-    noiseAmount={0.1}
-    distortion={0.05}
-    className="custom-rays"
-  />
-</div>
+  
 
       {/* NAVBAR */}
       <header className="border-b border-green-600  ">
