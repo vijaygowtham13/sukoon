@@ -6,6 +6,7 @@ import { useEffect,useState ,useRef} from "react";
 import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
 import { Roboto , Merriweather} from "next/font/google";
 import { div, img, li, main } from "framer-motion/client";
+import LightRays from './LightRays';
 
 
 
@@ -171,9 +172,24 @@ export default function Home() {
 
  <div className="min-h-screen bg-pink-50 text-gray-800 font-sans bg-[#E8F5E9]">
 <div className="relative bg-green-200 overflow-hidden pb-50">
+  <div className="absolute inset-0">
+  <LightRays
+    raysOrigin="top-center"
+    raysColor="green-600"
+    raysSpeed={5.5}
+    lightSpread={0.8}
+    rayLength={1.2}
+    followMouse={true}
+    mouseInfluence={0.1}
+    noiseAmount={0.1}
+    distortion={0.05}
+    className="custom-rays"
+  />
+</div>
 
       {/* NAVBAR */}
       <header className="border-b border-green-600  ">
+
         <div className="fixed top-4 left-0 right-0 z-50 flex justify-between items-center px-4 md:px-5 py-4 border border-white/10 rounded-2xl mx-4 backdrop-blur-sm bg-white/5">
           {/* left: logo + main links */}
           <div className="flex items-center">
@@ -335,6 +351,9 @@ export default function Home() {
       </motion.div>
     </section>
 
+
+
+
       {/* CARDS */}
        <main ref={ref} className="max-w-3xl mx-auto px-6 mt-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -415,6 +434,9 @@ export default function Home() {
     />
   </svg>
     </div>
+
+    
+
 
       {/* CONSULT TOP DOCTORS SECTION */}
  <section className="px-6 md:px-40 py-16">
