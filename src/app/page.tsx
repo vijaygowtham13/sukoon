@@ -11,6 +11,7 @@ import { div, img, li, main } from "framer-motion/client";
 
 
 
+
 const cardVariants: Variants = {
    hiddenLeft: { opacity: 1, y: -100 },
   hiddenBottom: { opacity: 1, y: -100 },
@@ -36,6 +37,8 @@ const merriweather = Merriweather({
 
 
 export default function Home() {
+
+   const [menuOpen, setMenuOpen] = useState(false);
 
  const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -172,171 +175,203 @@ export default function Home() {
 
  <div className="min-h-screen bg-pink-50 text-gray-800 font-sans bg-[#E8F5E9]">
 <div className="relative bg-green-200 overflow-hidden pb-50">
+
+
+
+
+
   
 
       {/* NAVBAR */}
-      <header className="border-b border-green-600  ">
+     <header className="border-b border-green-600">
+  <div className="fixed top-4 left-0 right-0 z-50 flex justify-between items-center px-4 md:px-5 py-4 border border-white/10 rounded-2xl mx-4 backdrop-blur-sm bg-white/5">
+    {/* Left: Logo + Nav (desktop only) */}
+    <div className="flex items-center">
+      <span className={`text-3xl font-bold text-green-700 tracking-tight ${merriweather.className}`}>
+        Sukoon
+      </span>
 
-        <div className="fixed top-4 left-0 right-0 z-50 flex justify-between items-center px-4 md:px-5 py-4 border border-white/10 rounded-2xl mx-4 backdrop-blur-sm bg-white/5">
-          {/* left: logo + main links */}
-          <div className="flex items-center">
-            <div className="flex items-center mr-20">
-              <span className={`text-3xl font-bold text-green-700 tracking-tight ${merriweather.className}`}>
-                Sukoon
-              </span>
-              
-            </div>
+      <nav className="hidden md:flex gap-6 ml-10 text-base font-extrabold text-gray-700">
+        <Link href="#" className={`${merriweather.className} text-black`}>AboutUs</Link>
+        <Link href="#" className={`${merriweather.className} text-black`}>Community</Link>
+        <Link href="#" className={`${merriweather.className} text-black`}>Tips</Link>
+      </nav>
+    </div>
 
-            <nav className="hidden md:flex gap-6 text-base font-extrabold text-gray-700">
-              <Link href="#" className={`${merriweather.className} text-black`}>
-                AboutUs
-              </Link>
-              <Link href="#" className={`${merriweather.className} text-black`}>
-                Community
-              </Link>
-              <Link href="#" className={`${merriweather.className} text-black`}>
-                Tips
-              </Link>
-            </nav>
-          </div>
+    {/* Right: Small Links + Login (desktop only) */}
+    <div className="hidden md:flex items-center gap-6 text-sm">
+      <Link href="#" className="hover:text-gray-900">Instant Chat</Link>
+      <Link href="#" className="hover:text-gray-900">Stages</Link>
+      <Link href="#" className="hover:text-gray-900">Security & Help</Link>
+      <button className="border border-green-600 rounded-md px-4 py-1 text-sm hover:shadow-sm cursor-pointer">
+        Login / Signup
+      </button>
+    </div>
 
-          {/* right: small links + login */}
-          <div className="flex items-center gap-6 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="inline-block bg-green-600 text-white text-[10px] px-2 py-[3px] rounded-full font-semibold">
-                NEW
-              </span>
-              <Link
-                href="#"
-                className="flex items-center gap-1 hover:text-gray-900"
-              >
-                Instant Chat
-                <svg
-                  className="w-3 h-3 text-gray-500"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </Link>
-            </div>
-            <Link
-                href="#"
-                className="flex items-center gap-1 hover:text-gray-900"
-              >
-                Stages
-                <svg
-                  className="w-3 h-3 text-gray-500"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </Link>
-            <Link
-                href="#"
-                className="flex items-center gap-1 hover:text-gray-900"
-              >
-                Security & help
-                <svg
-                  className="w-3 h-3 text-gray-500"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </Link>
-            <button className="border border-green-600 rounded-md px-4 py-1 text-sm hover:shadow-sm cursor-pointer">
-              Login / Signup
-            </button>
-          </div>
-        </div>
-      </header>
+    {/* Mobile Toggle */}
+    <button
+      className="md:hidden flex flex-col gap-1"
+      onClick={() => setMenuOpen(!menuOpen)}
+    >
+      <span className="w-6 h-0.5 bg-green-700"></span>
+      <span className="w-6 h-0.5 bg-green-700"></span>
+      <span className="w-6 h-0.5 bg-green-700"></span>
+    </button>
+  </div>
 
-      {/* SEARCH BAR */}
-  <section className="max-w-xl mx-40 px-2 mt-25">
-      <motion.div
-        // 👇 Shake animation loop
-        animate={{
-          x: [0, -5, 5, -5, 5, 0],
-        }}
-        transition={{
-          duration: 0.8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        // 👇 Stops vibrating on hover/focus
-        whileHover={{ x: 0 }}
-        whileTap={{ x: 0 }}
-        className="flex border border-green-600 rounded-md overflow-hidden shadow-sm h-10"
+  {/* Mobile Menu */}
+  <AnimatePresence>
+    {menuOpen && (
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        className="md:hidden fixed top-20 left-0 right-0 bg-white shadow-lg flex flex-col items-center py-6 gap-4 z-40"
       >
-        {/* location */}
-        <div className="flex items-center gap-3 px-4 border-r border-green-600 bg-white w-56">
-          <svg
-            className="w-4 h-4 text-green-600"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
-            />
-            <path
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 11.5c0 6.5-9 11-9 11s-9-4.5-9-11a9 9 0 1118 0z"
-            />
-          </svg>
-          <input
-            className="w-full outline-none text-sm text-green-300 placeholder-green-600"
-            placeholder="Dubai"
-          />
-        </div>
+        <Link href="#" className="text-lg">AboutUs</Link>
+        <Link href="#" className="text-lg">Community</Link>
+        <Link href="#" className="text-lg">Tips</Link>
+        <Link href="#" className="text-lg">Instant Chat</Link>
+        <Link href="#" className="text-lg">Stages</Link>
+        <Link href="#" className="text-lg">Security & Help</Link>
+        <button className="mt-2 border border-green-600 rounded-md px-4 py-2 text-sm">
+          Login / Signup
+        </button>
+      </motion.nav>
+    )}
+  </AnimatePresence>
+</header>
+      {/* SEARCH BAR */}
+  {/* Desktop version (unchanged) */}
+<section className="max-w-xl mx-40 px-2 mt-25 hidden sm:block">
+  <motion.div
+    animate={{ x: [0, -5, 5, -5, 5, 0] }}
+    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+    whileHover={{ x: 0 }}
+    whileTap={{ x: 0 }}
+    className="flex border border-green-600 rounded-md overflow-hidden shadow-sm h-10"
+  >
+    {/* location */}
+    <div className="flex items-center gap-3 px-4 border-r border-green-600 bg-white w-56">
+      <svg
+        className="w-4 h-4 text-green-600"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+        />
+        <path
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21 11.5c0 6.5-9 11-9 11s-9-4.5-9-11a9 9 0 1118 0z"
+        />
+      </svg>
+      <input
+        className="w-full outline-none text-sm text-green-300 placeholder-green-600"
+        placeholder="Dubai"
+      />
+    </div>
 
-        {/* search */}
-        <div className="flex items-center px-4 flex-1 bg-green-600">
-          <svg
-            className="w-4 h-4 text-white mr-3"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-4.35-4.35"
-            />
-            <path
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M11 18a7 7 0 100-14 7 7 0 000 14z"
-            />
-          </svg>
-          <input
-            className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
-            placeholder="Search related consultants etc."
-          />
-        </div>
-      </motion.div>
-    </section>
+    {/* search */}
+    <div className="flex items-center px-4 flex-1 bg-green-600">
+      <svg
+        className="w-4 h-4 text-white mr-3"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21 21l-4.35-4.35"
+        />
+        <path
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M11 18a7 7 0 100-14 7 7 0 000 14z"
+        />
+      </svg>
+      <input
+        className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
+        placeholder="Search related consultants etc."
+      />
+    </div>
+  </motion.div>
+</section>
+
+{/* Mobile version */}
+<section className="sm:hidden px-4 mt-25">
+  <motion.div
+    animate={{ x: [0, -3, 3, -3, 3, 0] }}
+    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+    whileHover={{ x: 0 }}
+    whileTap={{ x: 0 }}
+    className="flex flex-col gap-2 border border-green-600 rounded-md overflow-hidden shadow-sm"
+  >
+    {/* location */}
+    <div className="flex items-center gap-2 px-3 border-b border-green-600 bg-white h-10">
+      <svg
+        className="w-4 h-4 text-green-600"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+        />
+        <path
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21 11.5c0 6.5-9 11-9 11s-9-4.5-9-11a9 9 0 1118 0z"
+        />
+      </svg>
+      <input
+        className="w-full outline-none text-sm text-green-700 placeholder-green-600"
+        placeholder="Dubai"
+      />
+    </div>
+
+    {/* search */}
+    <div className="flex items-center px-3 bg-green-600 h-10">
+      <svg
+        className="w-4 h-4 text-white mr-2"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21 21l-4.35-4.35"
+        />
+        <path
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M11 18a7 7 0 100-14 7 7 0 000 14z"
+        />
+      </svg>
+      <input
+        className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
+        placeholder="Search related consultants etc."
+      />
+    </div>
+  </motion.div>
+</section>
+
 
 
 
@@ -512,53 +547,54 @@ export default function Home() {
 </section>
 
 
-       <section className="px-6 md:px-35 py-12 ">
-       <motion.h1
-        ref={headingRef}
-        initial={{ opacity: 0, y: 10, rotateY: 0 }}
-        animate={
-          headingInView
-            ? { opacity: 1, y: 0, rotateY: 360 }
-            : { opacity: 0, y: 10, rotateY: 0 }
-        }
-        transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
-        style={{ perspective: "1000px" }}
-        className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}
-      >
-        Schedule a Personalized Consultation with Trusted Experts
-      </motion.h1>
+      <section className="px-6 md:px-35 py-12">
+  {/* Heading */}
+  <motion.h1
+    ref={headingRef}
+    initial={{ opacity: 0, y: 10, rotateY: 0 }}
+    animate={
+      headingInView
+        ? { opacity: 1, y: 0, rotateY: 360 }
+        : { opacity: 0, y: 10, rotateY: 0 }
+    }
+    transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
+    style={{ perspective: "1000px" }}
+    className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}
+  >
+    Schedule a Personalized Consultation with Trusted Experts
+  </motion.h1>
 
-      {/* Paragraph */}
-      <motion.p
-        ref={paraRef}
-        initial={{ opacity: 0, y: 100, rotateY: 0 }}
-        animate={
-          paraInView
-            ? { opacity: 1, y: 0, rotateY: 360 }
-            : { opacity: 0, y: 100, rotateY: 0 }
-        }
-        transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
-        style={{ perspective: "1000px" }}
-        className="text-gray-600 mt-2"
-      >
-        Connect with Verified Specialists in Pregnancy, Childcare & Family Wellness
-      </motion.p>
+  {/* Paragraph */}
+  <motion.p
+    ref={paraRef}
+    initial={{ opacity: 0, y: 100, rotateY: 0 }}
+    animate={
+      paraInView
+        ? { opacity: 1, y: 0, rotateY: 360 }
+        : { opacity: 0, y: 100, rotateY: 0 }
+    }
+    transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
+    style={{ perspective: "1000px" }}
+    className="text-gray-600 mt-2"
+  >
+    Connect with Verified Specialists in Pregnancy, Childcare & Family Wellness
+  </motion.p>
 
-      {/* Carousel */}
-      <div className="relative mt-10">
-        {/* Left Button */}
-           <motion.div
-      ref={carouselRef}
-      initial={{ opacity: 0, y: 100, rotateY: 0 }}
-      animate={
-        carouselInView
-          ? { opacity: 1, y: 0, rotateY: 360 }
-          : { opacity: 0, y: 100, rotateY: 0 }
-      }
-      transition={{ type: "spring", stiffness: 80, damping: 20, duration: 2.5 }}
-      style={{ perspective: "1000px" }}
-      className="relative mt-10"
-    >
+  {/* Carousel Container */}
+  <motion.div
+    ref={carouselRef}
+    initial={{ opacity: 0, y: 100, rotateY: 0 }}
+    animate={
+      carouselInView
+        ? { opacity: 1, y: 0, rotateY: 360 }
+        : { opacity: 0, y: 100, rotateY: 0 }
+    }
+    transition={{ type: "spring", stiffness: 80, damping: 20, duration: 2.5 }}
+    style={{ perspective: "1000px" }}
+    className="relative mt-10"
+  >
+    {/* Desktop carousel: visible on md and above */}
+    <div className="hidden md:block">
       {/* Left Button */}
       <button
         onClick={handlePrev}
@@ -568,7 +604,6 @@ export default function Home() {
         <span className="text-xl">‹</span>
       </button>
 
-      {/* Cards */}
       <div className="overflow-hidden">
         <div
           className="flex transition-transform duration-500 ease-in-out"
@@ -602,9 +637,30 @@ export default function Home() {
       >
         <span className="text-xl">›</span>
       </button>
-    </motion.div>
-      </div>
-    </section>
+    </div>
+
+    {/* Mobile carousel: visible below md */}
+    <div className="flex md:hidden overflow-x-scroll gap-4 no-scrollbar mt-4">
+      {doctors.map((doc, i) => (
+        <div key={i} className="flex-shrink-0 w-2/3">
+          <div className="rounded-xl overflow-hidden shadow-sm bg-white">
+            <Image
+              src={doc.img}
+              alt={doc.title}
+              width={300}
+              height={200}
+              className="w-full h-40 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white"
+            />
+            <div className="p-3">
+              <h3 className="font-semibold text-gray-900 text-sm">{doc.title}</h3>
+              <p className="text-xs text-gray-600 mt-1">{doc.desc}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </motion.div>
+</section>
 
      <section className="px-6 md:px-80 py-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
