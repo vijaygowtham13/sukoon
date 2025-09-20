@@ -173,7 +173,7 @@ export default function Home() {
 
   return (
 
- <div className="min-h-screen bg-pink-50 text-gray-800 font-sans bg-[#E8F5E9]">
+ <div className="min-h-screen bg-white text-gray-800 font-sans bg-[#E8F5E9]">
 <div className="relative bg-green-200 overflow-hidden pb-50">
 
 
@@ -451,7 +451,7 @@ export default function Home() {
   >
     
     <path
-      fill="green"
+      fill="white"
       d="M0 64 C360 192 1080 192 1440 64 L1440 320 L0 320 Z"
     />
   </svg>
@@ -461,7 +461,7 @@ export default function Home() {
 
 
       {/* CONSULT TOP DOCTORS SECTION */}
- <section className="px-6 md:px-40 py-16">
+ <section className="px-6 md:px-40">
   {/* Header Row */}
   <div className="flex flex-col md:flex-row md:items-center md:justify-between text-center md:text-left">
     <div>
