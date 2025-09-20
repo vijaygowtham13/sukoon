@@ -9,7 +9,13 @@ import { div, img, li, main } from "framer-motion/client";
 
 
 
-
+const services = [
+  { icon: "💬", title: "Instant Q&A" },
+  { icon: "👥", title: "Live Community" },
+  { icon: "✨", title: "Expert Consultation" },
+  { icon: "💡", title: "Daily Tips" },
+  { icon: "", title: "" },
+];
 
 
 const cardVariants: Variants = {
@@ -37,22 +43,31 @@ const merriweather = Merriweather({
 
 
 export default function Home() {
+  const [active, setActive] = useState(0);
+const [menuOpen, setMenuOpen] = useState(false);
+const [isCollapsed, setIsCollapsed] = useState(false);
 
-   const [menuOpen, setMenuOpen] = useState(false);
+// Scroll handler
+useEffect(() => {
+  const handleScroll = () => {
+    if (window.scrollY > 150) {
+      setIsCollapsed(true);
+    } else {
+      setIsCollapsed(false);
+    }
+  };
 
- const [isCollapsed, setIsCollapsed] = useState(false);
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 150) {
-        setIsCollapsed(true);
-      } else {
-        setIsCollapsed(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+// Autoplay carousel
+useEffect(() => {
+  const timer = setInterval(() => {
+    setActive((prev) => (prev + 1) % services.length);
+  }, 3000);
+  return () => clearInterval(timer);
+}, []);
 
 
 
@@ -457,6 +472,88 @@ export default function Home() {
   </svg>
     </div>
 
+
+    <section className="relative py-24 overflow-hidden bg-white">
+      {/* Background */}
+     
+
+      {/* Title */}
+      <h2 className={`relative text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16 drop-shadow-lg ${merriweather.className}`}>
+        Our Services
+      </h2>
+
+      {/* Desktop Carousel (md and up) */}
+      <div className="hidden md:flex relative justify-center items-center h-[420px] perspective-[1000px] ">
+        {services.map((service, i) => {
+          const total = services.length;
+          const offset = (i - active + total) % total;
+          let position = offset;
+          if (offset > total / 2) position = offset - total;
+
+          const scale = position === 0 ? 1 : 0.7;
+          const opacity = position === 0 ? 1 : 0.4;
+          const x = `${position * 220}px`;
+          const zIndex = position === 0 ? 10 : 0;
+          const rotateY = `${position * -20}deg`;
+
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-72 h-80 rounded-2xl flex flex-col items-center justify-center 
+                         bg-white/20 backdrop-blur-xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.2)] 
+                         text-gray-900 cursor-pointer border border-green-400 shadow-xl shadow-green-800"
+              style={{ zIndex }}
+              animate={{ x, scale, opacity, rotateY }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              onClick={() => setActive(i)}
+            >
+              <span className="text-7xl mb-4">{service.icon}</span>
+              <h3 className="text-xl font-semibold">{service.title}</h3>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Mobile Carousel (sm screens) */}
+      <div className="md:hidden relative flex justify-center items-center h-[300px] overflow-x-hidden">
+        {services.map((service, i) => {
+          const offset = i - active;
+          const scale = offset === 0 ? 1 : 0.75;
+          const opacity = offset === 0 ? 1 : 0.3;
+          const x = `${offset * 180}px`;
+          const zIndex = offset === 0 ? 10 : 0;
+
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-60 h-72 rounded-2xl flex flex-col items-center justify-center
+                         bg-white/20 backdrop-blur-xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.2)]
+                         text-gray-900 cursor-pointer"
+              style={{ zIndex }}
+              animate={{ x, scale, opacity }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              onClick={() => setActive(i)}
+            >
+              <span className="text-6xl mb-3">{service.icon}</span>
+              <h3 className="text-lg font-semibold text-center">{service.title}</h3>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Dots */}
+      <div className="relative flex justify-center mt-12 gap-3">
+        {services.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            className={`w-4 h-4 rounded-full transition-all ${
+              i === active ? "bg-green-600 scale-125" : "bg-green-300"
+            }`}
+          />
+        ))}
+      </div>
+    </section>
     
 
 
