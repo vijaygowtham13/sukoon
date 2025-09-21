@@ -6,7 +6,7 @@ import { useEffect,useState ,useRef} from "react";
 import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
 import { Roboto , Merriweather} from "next/font/google";
 import { div, img, li, main } from "framer-motion/client";
-
+import CardSwap, { Card } from '../components/CardSwap'
 
 
 const services = [
@@ -14,7 +14,7 @@ const services = [
   { icon: "👥", title: "Live Community" },
   { icon: "✨", title: "Expert Consultation" },
   { icon: "💡", title: "Daily Tips" },
-  { icon: "", title: "" },
+  
 ];
 
 
@@ -192,7 +192,9 @@ useEffect(() => {
 <div className="relative bg-green-200 overflow-hidden pb-50">
 
 
-
+ <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-green-100 to-green-200" />
+      <div className="absolute -top-40 -left-40 w-[400px] h-[400px] rounded-full bg-green-300/30 blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-emerald-400/30 blur-3xl" />
 
 
   
@@ -473,49 +475,50 @@ useEffect(() => {
     </div>
 
 
-    <section className="relative py-24 overflow-hidden bg-white">
+
+
+
+
+    
+      
       {/* Background */}
      
+<section className="relative py-24 overflow-hidden">
+  {/* Title */}
+  <h2
+    className={`relative text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16 drop-shadow-lg ${merriweather.className}`}
+  >
+    Our Services
+  </h2>
 
-      {/* Title */}
-      <h2 className={`relative text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16 drop-shadow-lg ${merriweather.className}`}>
-        Our Services
-      </h2>
-
-      {/* Desktop Carousel (md and up) */}
-      <div className="hidden md:flex relative justify-center items-center h-[420px] perspective-[1000px] ">
-        {services.map((service, i) => {
-          const total = services.length;
-          const offset = (i - active + total) % total;
-          let position = offset;
-          if (offset > total / 2) position = offset - total;
-
-          const scale = position === 0 ? 1 : 0.7;
-          const opacity = position === 0 ? 1 : 0.4;
-          const x = `${position * 220}px`;
-          const zIndex = position === 0 ? 10 : 0;
-          const rotateY = `${position * -20}deg`;
-
-          return (
-            <motion.div
-              key={i}
-              className="absolute w-72 h-80 rounded-2xl flex flex-col items-center justify-center 
-                         bg-white/20 backdrop-blur-xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.2)] 
-                         text-gray-900 cursor-pointer border border-green-400 shadow-xl shadow-green-800"
-              style={{ zIndex }}
-              animate={{ x, scale, opacity, rotateY }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              onClick={() => setActive(i)}
+  {/* Desktop: Keep your existing 3D CardSwap */}
+  <div className="hidden md:block pb-30">
+    <div className="relative h-[350px]">
+      <CardSwap
+        cardDistance={90}
+        verticalDistance={90}
+        delay={3000}
+        pauseOnHover={false}
+      >
+        {services.map((service, i) => (
+          <Card
+            key={i}
+            className="border border-green-600 shadow-xl shadow-green-800 bg-white/20 backdrop-blur-md"
+          >
+            <span className="text-6xl mb-10">{service.icon}</span>
+            <h3
+              className={`text-3xl font-semibold text-center text-green-600 ${merriweather.className}`}
             >
-              <span className="text-7xl mb-4">{service.icon}</span>
-              <h3 className="text-xl font-semibold">{service.title}</h3>
-            </motion.div>
-          );
-        })}
-      </div>
+              {service.title}
+            </h3>
+          </Card>
+        ))}
+      </CardSwap>
+    </div>
+  </div>
 
-      {/* Mobile Carousel (sm screens) */}
-      <div className="md:hidden relative flex justify-center items-center h-[300px] overflow-x-hidden">
+  {/* Mobile: vertical scrollable cards */}
+  <div className="md:hidden relative flex justify-center items-center h-[300px] overflow-x-hidden">
         {services.map((service, i) => {
           const offset = i - active;
           const scale = offset === 0 ? 1 : 0.75;
@@ -553,7 +556,8 @@ useEffect(() => {
           />
         ))}
       </div>
-    </section>
+</section>
+
     
 
 
@@ -563,10 +567,10 @@ useEffect(() => {
   <div className="flex flex-col md:flex-row md:items-center md:justify-between text-center md:text-left">
     <div>
       <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
-        Practical Tips
+        Choose your Journey
       </h2>
       <p className="text-gray-600 mt-2">
-        Get expert advice on various health topics
+        Personalized Tips & Resources for Every Stage of Parenthood
       </p>
     </div>
 
