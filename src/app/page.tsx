@@ -7,6 +7,7 @@ import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
 import { Roboto , Merriweather} from "next/font/google";
 import { div, img, li, main } from "framer-motion/client";
 import CardSwap, { Card } from '../components/CardSwap'
+import GooeyNav from '../components/GooeyNav';
 
 
 const services = [
@@ -16,6 +17,8 @@ const services = [
   { icon: "💡", title: "Daily Tips" },
   
 ];
+
+
 
 
 const cardVariants: Variants = {
@@ -146,6 +149,15 @@ useEffect(() => {
     },
   ];
 
+const items = [
+  { label: "Home", href: "#" },
+  { label: "About", href: "#" },
+  { label: "Community", href: "#" },
+];
+
+
+  
+
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [direction, setDirection] = useState(1); // 1 = right, -1 = left
 
@@ -208,11 +220,19 @@ useEffect(() => {
         Sukoon
       </span>
 
-      <nav className="hidden md:flex gap-6 ml-10 text-base font-extrabold text-gray-700">
-        <Link href="#" className={`${merriweather.className} text-black`}>AboutUs</Link>
-        <Link href="#" className={`${merriweather.className} text-black`}>Community</Link>
-        <Link href="#" className={`${merriweather.className} text-black`}>Tips</Link>
-      </nav>
+      <div className="text-black ml-10 hidden md:block">
+  <GooeyNav
+    items={items}
+    particleCount={2}             // moderate number
+    particleDistances={[10, 5]}    // small spread
+    particleR={10}                 // small radius
+    initialActiveIndex={0}
+    animationTime={600}
+    timeVariance={10}             // small variance
+    colors={['green', 'green', 'green']} // green spark
+  />
+</div>
+
     </div>
 
     {/* Right: Small Links + Login (desktop only) */}
