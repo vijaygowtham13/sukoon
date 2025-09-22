@@ -6,8 +6,59 @@ import { useEffect,useState ,useRef} from "react";
 import { motion, AnimatePresence , Variants,useInView} from "framer-motion";
 import { Roboto , Merriweather} from "next/font/google";
 import { div, img, li, main } from "framer-motion/client";
-import CardSwap, { Card } from '../components/CardSwap'
+
 import GooeyNav from '../components/GooeyNav';
+import { cursorTo } from "readline";
+
+
+const steps = [
+  {
+    id: 1,
+    title: "Pregnancy Care",
+    description:
+      "Diet recommendations, physiotherapy exercises, and lactation planning",
+    svg: "/g1.gif",
+    position: "left",
+  },
+  {
+    id: 2,
+    title: "Newborn Care and Immunization",
+    description:
+      "We provide guidance on newborn care practices, immunization schedules, and health check-ups.",
+    svg: "/g2.gif",
+    position: "right",
+  },
+  {
+    id: 3,
+    title: "Infant Care and Nutrition",
+    description: (
+      <>
+        <strong>Nutrition Guidance:</strong> We offer personalized nutrition plans for your infant's growth and development.
+        <br />
+        <strong>Feeding Practices:</strong> Our experts provide advice on breastfeeding, formula feeding, and introducing solids.
+      </>
+    ),
+    svg: "/g3.gif",
+    position: "left",
+  },
+  {
+    id: 4,
+    title: "Toddler Care and Early Learning",
+    description: (
+      <>
+        <strong>Developmental Milestones:</strong> We provide guidance on tracking and supporting your toddler's developmental milestones.
+        <br />
+        <strong>Learning Activities:</strong> Our experts suggest age-appropriate learning activities to stimulate your child's cognitive development.
+        <br />
+        <strong>Behavioral Guidance:</strong> We offer strategies for managing common toddler behaviors and promoting positive habits.
+      </>
+    ),
+    svg: "/g4.gif",
+    position: "right",
+  },
+];
+
+
 
 
 const services = [
@@ -50,7 +101,121 @@ export default function Home() {
 const [menuOpen, setMenuOpen] = useState(false);
 const [isCollapsed, setIsCollapsed] = useState(false);
 
-// Scroll handler
+const containerRef = useRef<HTMLDivElement | null>(null);
+  const lineRef = useRef<HTMLDivElement | null>(null);
+  const [lineHeight, setLineHeight] = useState(0);
+  const [activeDots, setActiveDots] = useState<number[]>([]);
+
+  // Scroll handler for line and active dots
+  useEffect(() => {
+  const handleScroll = () => {
+    const container = containerRef.current;
+    const line = lineRef.current;
+    if (!container || !line) return;
+
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const containerTop = container.offsetTop;
+    const containerHeight = container.offsetHeight;
+    const totalLineHeight = containerHeight - 350;
+
+    // Calculate line height
+    const rawProgress = (scrollTop + windowHeight - containerTop) / containerHeight;
+    const progress = Math.min(Math.max(rawProgress, 0), 1);
+    const lineCurrentHeight = progress * totalLineHeight;
+    setLineHeight(lineCurrentHeight);
+
+    // Activate dots exactly when line touches them
+    const dotElements = container.querySelectorAll<HTMLElement>(".timeline-dot div");
+    const active: number[] = [];
+    dotElements.forEach((dot, idx) => {
+      // dot position relative to container top
+      const dotOffset = dot.offsetTop + dot.offsetHeight / 2;
+      if (lineCurrentHeight >= dotOffset) {
+        active.push(idx);
+      }
+    });
+    setActiveDots(active);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll(); // trigger initially
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
+
+
+  // Intersection Observer for mobile reveal animation
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>(".mobile-reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add("visible");
+            }, idx * 150);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => elements.forEach((el) => observer.unobserve(el));
+  }, []);
+
+  // Mobile reveal CSS (TS-safe cleanup)
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @media (max-width: 767px) {
+        .mobile-reveal {
+          opacity: 0;
+          transform: translateY(60px);
+          transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .mobile-reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      // Explicitly return void for TS
+      document.head.removeChild(style);
+      return undefined;
+    };
+  }, []);
+
+  
+    <div ref={containerRef} className="relative">
+      <div
+        ref={lineRef}
+        className="absolute left-1/2 w-1 bg-green-600"
+        style={{ height: `${lineHeight}px` }}
+      />
+      {/* Example dots */}
+      {Array.from({ length: 5 }).map((_, idx) => (
+        <div
+          key={idx}
+          className={`timeline-dot w-6 h-6 rounded-full absolute left-1/2 -translate-x-1/2 bg-gray-300 ${
+            activeDots.includes(idx) ? "bg-green-600" : ""
+          }`}
+          style={{ top: `${idx * 150}px` }}
+        />
+      ))}
+
+      {/* Example mobile reveal items */}
+      <div className="mobile-reveal mt-16 p-4 bg-white rounded shadow">Item 1</div>
+      <div className="mobile-reveal mt-16 p-4 bg-white rounded shadow">Item 2</div>
+      <div className="mobile-reveal mt-16 p-4 bg-white rounded shadow">Item 3</div>
+    </div>
+
+
+
 useEffect(() => {
   const handleScroll = () => {
     if (window.scrollY > 150) {
@@ -82,13 +247,58 @@ useEffect(() => {
   
 
   const headingRef = useRef(null);
-  const headingInView = useInView(headingRef, { once: false, margin: "-100px" });
 
   const paraRef = useRef(null);
   const paraInView = useInView(paraRef, { once: false, margin: "-100px" });
 
  const carouselRef = useRef(null);
   const carouselInView = useInView(carouselRef, { once: false, margin: "-100px" });
+
+
+const testimonials = [
+    [
+      {
+        text: "This app has completely changed how I manage my health! Booking appointments with consultants is so simple, and I get reminders before every consultation. I also love the health tips and daily trackers — it keeps me motivated to stay healthy.",
+        author: "Priyanka Sharma",
+        title: "User",
+      },
+      {
+        text: "Excellent app! I can consult with healthcare consultants online without waiting in long queues, and the video calls are smooth. The prescriptions are easy to download, and I feel confident knowing all my health records are securely stored in one place.",
+        author: "Ananya Verma",
+        title: "User",
+      },
+    ],
+    [
+      {
+        text: "Very user-friendly and reliable. I especially appreciate the symptom checker — it gives me guidance before I even see a consultant. The app also tracks my medications and sends reminders so I never miss a dose. Highly recommended!",
+        author: "Rahul.s",
+        title: "User",
+      },
+      {
+        text: "I love the clean design and simple navigation. Scheduling appointments, checking test results, and chatting with consultants is seamless. It really saves time and reduces stress compared to traditional clinics.",
+        author: "Vikram.k",
+        title: "User",
+      },
+    ],
+    [
+      {
+        text: "Customer support is amazing! I had a small issue with uploading my health documents, and they resolved it immediately. The app also gives me personalized health insights, which is super helpful for managing my lifestyle.",
+        author: "Sneha Reddy",
+        title: "User",
+      },
+      {
+        text: "This healthcare app is a game-changer. The AI-based reminders for medicines and regular checkups are spot on. I also like how it keeps all my medical history organized — I feel more in control of my health than ever before.",
+        author: "Vijay Kumar",
+        title: "User",
+      },
+    ],
+  ]
+
+
+
+
+
+
 
 
    const articles = [
@@ -427,7 +637,7 @@ const items = [
   className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
 >
   <div className="h-48 flex items-center justify-center bg-[#AFCFED] ">
-    <Image src="/1.jpg" alt="Card" width={180} height={200} className="object-contain" />
+    <Image src="/1.01.webp" alt="Card" width={250} height={200} className="object-fit" />
   </div>
   <div className="px-6 py-6">
     <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>Top Dietition</h3>
@@ -447,7 +657,7 @@ const items = [
   className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
 >
           <div className="h-48 flex items-center justify-center bg-[#4DB3AE]">
-            <Image src="/2.jpeg" alt="Find Doctors Near You" width={180} height={200} />
+            <Image src="/1.02.jpg" alt="Find Doctors Near You" width={150} height={100} />
           </div>
           <div className="px-6 py-6">
             <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
@@ -467,7 +677,7 @@ const items = [
   className="rounded-2xl overflow-hidden border border-green-400 shadow-xl shadow-green-800 bg-white"
 >
           <div className="h-48 flex items-center justify-center bg-[#EDE7FF]">
-            <Image src="/3.0.webp" alt="Surgeries" width={180} height={200} />
+            <Image src="/1.03.jpg" alt="Surgeries" width={250} height={200} />
           </div>
           <div className="px-6 py-6">
             <h3 className={`text-lg font-semibold text-gray-900 ${merriweather.className}`}>
@@ -488,7 +698,7 @@ const items = [
   >
     
     <path
-      fill="white"
+      fill="black"
       d="M0 64 C360 192 1080 192 1440 64 L1440 320 L0 320 Z"
     />
   </svg>
@@ -503,42 +713,44 @@ const items = [
       
       {/* Background */}
      
-<section className="relative py-24 overflow-hidden">
+<section className="relative py-24 overflow-hidden bg-black">
   {/* Title */}
-  <h2
-    className={`relative text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16 drop-shadow-lg ${merriweather.className}`}
-  >
-    Our Services
-  </h2>
+ <h2 className="text-center text-3xl md:text-4xl font-light mb-16 text-white/90">
+        Our Services
+      </h2>
 
   {/* Desktop: Keep your existing 3D CardSwap */}
-  <div className="hidden md:block pb-30">
-    <div className="relative h-[350px]">
-      <CardSwap
-        cardDistance={90}
-        verticalDistance={90}
-        delay={3000}
-        pauseOnHover={false}
-      >
-        {services.map((service, i) => (
-          <Card
-            key={i}
-            className="border border-green-600 shadow-xl shadow-green-800 bg-white/20 backdrop-blur-md"
-          >
-            <span className="text-6xl mb-10">{service.icon}</span>
-            <h3
-              className={`text-3xl font-semibold text-center text-green-600 ${merriweather.className}`}
-            >
-              {service.title}
-            </h3>
-          </Card>
-        ))}
-      </CardSwap>
-    </div>
-  </div>
+  {/* Desktop only */}
+  <div>
+      {/* ✅ Desktop 3D Carousel */}
+      <div className="hidden md:flex relative justify-center items-center h-[400px] overflow-x-hidden ">
+        {services.map((service, i) => {
+          const offset = i - active;
+          const scale = offset === 0 ? 1 : 0.8;
+          const opacity = offset === 0 ? 1 : 0.4;
+          const x = `${offset * 250}px`; // wider spacing for desktop
+          const zIndex = offset === 0 ? 10 : 0;
 
-  {/* Mobile: vertical scrollable cards */}
-  <div className="md:hidden relative flex justify-center items-center h-[300px] overflow-x-hidden">
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-72 h-80 rounded-2xl flex flex-col items-center justify-center
+                         bg-black/20 backdrop-blur-xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.25)]
+                         text-white cursor-pointer border border-green-400 shadow-xl shadow-green-800"
+              style={{ zIndex }}
+              animate={{ x, scale, opacity }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              onClick={() => setActive(i)}
+            >
+              <span className="text-7xl mb-4">{service.icon}</span>
+              <h3 className="text-xl font-semibold text-center">{service.title}</h3>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* ✅ Mobile 3D Carousel */}
+      <div className="md:hidden relative flex justify-center items-center h-[300px] overflow-x-hidden">
         {services.map((service, i) => {
           const offset = i - active;
           const scale = offset === 0 ? 1 : 0.75;
@@ -564,8 +776,8 @@ const items = [
         })}
       </div>
 
-      {/* Dots */}
-      <div className="relative flex justify-center mt-12 gap-3">
+      {/* ✅ Dots (shared for both) */}
+      <div className="flex justify-center mt-12 gap-3">
         {services.map((_, i) => (
           <button
             key={i}
@@ -576,221 +788,220 @@ const items = [
           />
         ))}
       </div>
+    </div>
 </section>
 
     
 
 
       {/* CONSULT TOP DOCTORS SECTION */}
- <section className="px-6 md:px-40">
-  {/* Header Row */}
-  <div className="flex flex-col md:flex-row md:items-center md:justify-between text-center md:text-left">
-    <div>
-      <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
-        Choose your Journey
-      </h2>
-      <p className="text-gray-600 mt-2">
-        Personalized Tips & Resources for Every Stage of Parenthood
-      </p>
-    </div>
-
-    <div className="mt-4 md:mt-0">
-      <button className="border border-green-600 text-green-600 rounded-md px-6 py-2 hover:bg-green-50 transition cursor-pointer">
-        View All Tips
-      </button>
-    </div>
-  </div>
-
-  {/* Cards */}
-<div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
-  {[
-    { img: "/n1.png", title: "Hydration Tips" },
-    { img: "/n2.png", title: "Sleep Hygiene" },
-    { img: "/n3.png", title: "Diet & Nutrition" },
-    { img: "/n4.png", title: "Emergency Signs" },
-    { img: "/n5.png", title: "Positive Parenting" },
-    { img: "/n6.png", title: "Self-care for Parents" },
-  ].map((item, i) => (
-    <div key={i} className="flex flex-col items-center text-center w-full">
-      <motion.div
-        className="w-28 h-28 flex items-center justify-center rounded-full shadow-xl shadow-green-300 shadow-sm"
-        animate={{ rotateY: 360 }} // side rotation
-        transition={{ repeat: Infinity, duration: 5, ease: "linear" }} // slow and continuous
-        style={{ perspective: 1000 }} // enables 3D rotation effect
-      >
-        <Image
-          src={item.img}
-          alt={item.title}
-          width={50}
-          height={50}
-          className="object-contain w-20 h-20 object-cover"
-        />
-      </motion.div>
-
-      <p className="mt-10 text-sm font-medium text-gray-900 max-w-[120px]">
-        {item.title}
-      </p>
-      <a
-        href="#"
-        className="mt-2 text-sm font-semibold text-green-600 hover:underline"
-      >
-      
-      </a>
-    </div>
-  ))}
-</div>
-<div className="fixed right-6 bottom-12 z-50">
-  <button
-    className={`flex items-center gap-2 bg-green-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300 ${
-      isCollapsed ? "px-3 py-3" : "px-4 py-3"
-    }`}
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6"
+  <section
+      className="relative w-full bg-black text-white py-20 px-4 md:px-20 overflow-hidden font-sans "
+      ref={containerRef}
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M7.5 8.25h9m-9 3.75h6M21 12c0 4.97-4.03 9-9 9-1.53 0-2.97-.38-4.22-1.06L3 21l1.06-4.78C3.38 14.97 3 13.53 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9z"
-      />
-    </svg>
+      <h2 className="text-center text-3xl md:text-4xl font-light mb-16 text-white/90">
+        Choose Your Journey
+      </h2>
 
-    {!isCollapsed && <span>Instant Chat with an Expert</span>}
-  </button>
-</div>
-
-
-</section>
-
-
-      <section className="px-6 md:px-35 py-12">
-  {/* Heading */}
-  <motion.h1
-    ref={headingRef}
-    initial={{ opacity: 0, y: 10, rotateY: 0 }}
-    animate={
-      headingInView
-        ? { opacity: 1, y: 0, rotateY: 360 }
-        : { opacity: 0, y: 10, rotateY: 0 }
-    }
-    transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
-    style={{ perspective: "1000px" }}
-    className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}
-  >
-    Schedule a Personalized Consultation with Trusted Experts
-  </motion.h1>
-
-  {/* Paragraph */}
-  <motion.p
-    ref={paraRef}
-    initial={{ opacity: 0, y: 100, rotateY: 0 }}
-    animate={
-      paraInView
-        ? { opacity: 1, y: 0, rotateY: 360 }
-        : { opacity: 0, y: 100, rotateY: 0 }
-    }
-    transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
-    style={{ perspective: "1000px" }}
-    className="text-gray-600 mt-2"
-  >
-    Connect with Verified Specialists in Pregnancy, Childcare & Family Wellness
-  </motion.p>
-
-  {/* Carousel Container */}
-  <motion.div
-    ref={carouselRef}
-    initial={{ opacity: 0, y: 100, rotateY: 0 }}
-    animate={
-      carouselInView
-        ? { opacity: 1, y: 0, rotateY: 360 }
-        : { opacity: 0, y: 100, rotateY: 0 }
-    }
-    transition={{ type: "spring", stiffness: 80, damping: 20, duration: 2.5 }}
-    style={{ perspective: "1000px" }}
-    className="relative mt-10"
-  >
-    {/* Desktop carousel: visible on md and above */}
-    <div className="hidden md:block">
-      {/* Left Button */}
-      <button
-        onClick={handlePrev}
-        disabled={index === 0}
-        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
-      >
-        <span className="text-xl">‹</span>
-      </button>
-
-      <div className="overflow-hidden">
+      <div className="relative flex justify-center bg-black">
+        {/* Scroll Line */}
         <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${index * 25}%)` }}
-        >
-          {doctors.map((doc, i) => (
-            <div key={i} className="w-1/4 flex-shrink-0 px-3 text-center">
-              <div className="rounded-xl overflow-hidden shadow-sm bg-white">
-                <Image
-                  src={doc.img}
-                  alt={doc.title}
-                  width={300}
-                  height={200}
-                  className="w-full h-48 rounded-2xl overflow-hidden border border-green-600 shadow-xl  bg-white"
-                />
-                <div className="p-4">
-                  <h3 className="font-semibold text-gray-900">{doc.title}</h3>
-                  <p className="text-sm text-gray-600 mt-1">{doc.desc}</p>
-                </div>
+          ref={lineRef}
+          className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-green-600 via-green-500 to-green-400 z-0"
+          style={{ height: `${lineHeight}px` }}
+        ></div>
+
+        <div className="relative z-10 w-full max-w-5xl">
+          {steps.map((step, index) => (
+            <div
+              key={step.id}
+              className="mb-24 relative flex flex-col md:flex-row items-center md:justify-between"
+            >
+              {/* Dot */}
+              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 z-20 timeline-dot">
+                <div
+                  className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                    activeDots.includes(index) ? "bg-red-600 shadow-lg" : "bg-gray-600"
+                  }`}
+                ></div>
+              </div>
+
+              {/* Step Label */}
+              <div
+                className={`hidden md:block absolute top-0 ${
+                  step.position === "left"
+                    ? "left-[calc(50%+2.5rem)]"
+                    : "right-[calc(50%+2.5rem)]"
+                } inline-block text-white text-sm font-semibold 
+px-4 py-2 md:px-6 md:py-3 rounded-xl 
+shadow-md bg-gradient-to-r from-green-400 
+cursor-pointer>
+              `}
+              >
+                Stage {index + 1}
+              </div>
+
+              {/* Content */}
+              <div
+                className={`mobile-reveal md:w-[48%] p-6 rounded-2xl bg-[#111] border border-white/10 shadow-md cursor-pointer ${
+                  step.position === "left" ? "md:mr-auto" : "md:ml-auto"
+                }`}
+              >
+                {step.svg && (
+                  <img
+                    src={step.svg}
+                    alt={`Step ${index + 1}`}
+                    className="w-12 md:w-15 h-auto rounded-lg mb-2 ml-0"
+                    style={{ marginLeft: "-0.75rem" }}
+                  />
+                )}
+
+                <h3 className="text-lg md:text-xl font-semibold mb-2 tracking-tight text-green-400">
+                  {step.title}
+                </h3>
+                <p className="text-sm md:text-base text-gray-300 leading-relaxed font-light">
+                  {step.description}
+                </p>
               </div>
             </div>
           ))}
-        </div>
-      </div>
 
-      {/* Right Button */}
-      <button
-        onClick={handleNext}
-        disabled={index >= doctors.length - 4}
-        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
-      >
-        <span className="text-xl">›</span>
-      </button>
-    </div>
+          {/* Final Dot */}
+          <div className="hidden md:flex justify-center items-center mb-2 timeline-dot">
+            <div
+              className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                activeDots.includes(steps.length) ? "bg-red-500 shadow-lg" : "bg-gray-600"
+              }`}
+            ></div>
+          </div>
 
-    {/* Mobile carousel: visible below md */}
-    <div className="flex md:hidden overflow-x-scroll gap-4 no-scrollbar mt-4">
-      {doctors.map((doc, i) => (
-        <div key={i} className="flex-shrink-0 w-2/3">
-          <div className="rounded-xl overflow-hidden shadow-sm bg-white">
-            <Image
-              src={doc.img}
-              alt={doc.title}
-              width={300}
-              height={200}
-              className="w-full h-40 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white"
-            />
-            <div className="p-3">
-              <h3 className="font-semibold text-gray-900 text-sm">{doc.title}</h3>
-              <p className="text-xs text-gray-600 mt-1">{doc.desc}</p>
+          {/* Final Label */}
+          <div className="flex justify-center mb-6">
+            <button className="inline-block bg-white text-white text-sm font-medium px-6 py-3 rounded-xl shadow-mdhidden md:inline-block bg-gradient-to-r from-purple-600 to-indigo-700 px-4 py-2 rounded-xl text-sm font-semibold shadow-md cursor-pointer">
+              Stage 5
+            </button>
+          </div>
+
+          {/* Launch Campaign */}
+          <div className="flex justify-center">
+            <div className="mobile-reveal bg-gradient-to-br from-[#1a011f] via-black to-black border border-white/10 p-10 rounded-2xl text-center max-w-2xl">
+             
+              <h3 className="text-2xl font-bold text-green-400 mb-3 tracking-tight">
+                Early Childhood
+              </h3>
+              <p className="text-gray-400 mb-6 max-w-xl mx-auto font-light">
+               Covers ages 3 to 6 years, preparing for school and social integration. Focuses on nutrition, emotional well-being, and learning milestones. Helps children develop independence and confidence.
+              </p>
+            
             </div>
           </div>
         </div>
-      ))}
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+      <section className="px-6 md:px-35 py-12 bg-black">
+  {/* Heading */}
+  <h1 className="text-center text-3xl md:text-4xl font-light mb-4 text-white/90">
+        Schedule a Personalized Consultation with Trusted Experts
+      </h1>
+
+  {/* Paragraph */}
+ <p className="text-center text-white max-w-2xl mx-auto">
+    Connect with Verified Specialists in Pregnancy, Childcare & Family Wellness
+  </p>
+
+  {/* Carousel Container */}
+  <div
+  ref={carouselRef}
+  style={{ perspective: "1000px" }}
+  className="relative mt-10"
+>
+  {/* Desktop carousel: visible on md and above */}
+  <div className="hidden md:block">
+    {/* Left Button */}
+    <button
+      onClick={handlePrev}
+      disabled={index === 0}
+      className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
+    >
+      <span className="text-xl">‹</span>
+    </button>
+
+    <div className="overflow-hidden">
+      <div
+        className="flex transition-transform duration-500 ease-in-out"
+        style={{ transform: `translateX(-${index * 25}%)` }}
+      >
+        {doctors.map((doc, i) => (
+          <div key={i} className="w-1/4 flex-shrink-0 px-3 text-center">
+            <div className="rounded-xl overflow-hidden shadow-sm bg-white">
+              <Image
+                src={doc.img}
+                alt={doc.title}
+                width={300}
+                height={200}
+                className="w-full h-48 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white"
+              />
+              <div className="p-4">
+                <h3 className="font-semibold text-gray-900">{doc.title}</h3>
+                <p className="text-sm text-gray-600 mt-1">{doc.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-  </motion.div>
+
+    {/* Right Button */}
+    <button
+      onClick={handleNext}
+      disabled={index >= doctors.length - 4}
+      className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
+    >
+      <span className="text-xl">›</span>
+    </button>
+  </div>
+
+  {/* Mobile carousel: visible below md */}
+  <div className="flex md:hidden overflow-x-scroll gap-4 no-scrollbar mt-4">
+    {doctors.map((doc, i) => (
+      <div key={i} className="flex-shrink-0 w-2/3">
+        <div className="rounded-xl overflow-hidden shadow-sm bg-white">
+          <Image
+            src={doc.img}
+            alt={doc.title}
+            width={300}
+            height={200}
+            className="w-full h-40 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white"
+          />
+          <div className="p-3">
+            <h3 className="font-semibold text-gray-900 text-sm">{doc.title}</h3>
+            <p className="text-xs text-gray-600 mt-1">{doc.desc}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
 </section>
 
-     <section className="px-6 md:px-80 py-12">
+     <section className="px-6 md:px-80 py-12 bg-black">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
         {/* Left Text Section */}
         <div>
-          <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 text-center ${merriweather.className}`}>
+          <h2 className={`text-3xl md:text-4xl font-light mb-4 text-white/90 text-center`}>
             Read top articles from <br /> health experts
           </h2>
-          <p className="text-gray-600 mt-3">
+          <p className="text-white mt-3">
             Health articles that keep you informed about good health practices
             and achieve your goals.
           </p>
@@ -815,10 +1026,10 @@ const items = [
               <p className="text-green-600 text-xs font-semibold uppercase tracking-wide">
                 {article.category}
               </p>
-              <h3 className="mt-1 text-lg font-semibold text-gray-900">
+              <h3 className="mt-1 text-lg font-semibold text-white leading-tight">
                 {article.title}
               </h3>
-              <p className="text-gray-600 text-sm mt-1">{article.author}</p>
+              <p className="text-white text-sm mt-1">{article.author}</p>
             </div>
           </div>
         ))}
@@ -827,75 +1038,107 @@ const items = [
     
     </section>
 
-     <section className="px-6 md:px-16 py-20 text-center relative overflow-hidden">
-      <h2 className={`text-3xl md:text-4xl font-semibold text-green-600 ${merriweather.className}`}>
-        What our users have to say
-      </h2>
+     <section className="px-6 md:px-16 py-20 text-center relative overflow-hidden bg-black">
+       <div className="bg-black text-white py-0 px-4 md:px-16">
+     <h2 className="text-center text-3xl md:text-4xl font-light mb-16 text-green-400">
+  What our users have to say?
+</h2>
 
-      <div className="mt-6 min-h-[200px] relative">
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={testimonialIndex}
-            custom={direction}
-            initial={{ x: direction === 1 ? 300 : -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: direction === 1 ? -300 : 300, opacity: 0 }}
-            transition={{ duration: 0.6 }}
-            className="absolute w-full"
+      <style jsx>{`
+        @keyframes scroll-down {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(-50%);
+          }
+        }
+        @keyframes scroll-up {
+          0% {
+            transform: translateY(-50%);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+        @keyframes scroll-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        @keyframes scroll-right {
+          0% {
+            transform: translateX(-50%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+      `}</style>
+
+      {/* Desktop layout */}
+      <div className="hidden md:grid grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {testimonials.map((column, colIdx) => (
+          <div
+            key={colIdx}
+            className="overflow-hidden relative h-[300px]"
           >
-            <p className="text-lg md:text-xl text-gray-800 max-w-3xl mx-auto">
-              {testimonialsData[testimonialIndex].text}
-            </p>
-            <div className="mt-4 flex items-center justify-center space-x-2">
-              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-600">
-                👤
-              </span>
-              <span className="font-semibold text-gray-900">
-                {testimonialsData[testimonialIndex].user}
-              </span>
+            <div
+              className="flex flex-col gap-6"
+              style={{
+                animation: `${colIdx === 1 ? 'scroll-up' : 'scroll-down'} 12s linear infinite`,
+              }}
+            >
+              {[...column, ...column].map((item, i) => (
+                <div
+                  key={`desktop-${colIdx}-${i}`}
+                  className="border border-white/10 p-5 rounded-2xl backdrop-blur-md bg-white/5"
+                >
+                  <p className="text-sm text-white/90 mb-4">{item.text}</p>
+                  <p className="font-semibold">{item.author}</p>
+                  <p className="text-xs text-white/60">{item.title}</p>
+                </div>
+              ))}
             </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Left button */}
-      <button
-        onClick={prevTestimonial}
-        className="absolute left-80 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 text-3xl"
-      >
-        ‹
-      </button>
-
-      {/* Right button */}
-      <button
-        onClick={nextTestimonial}
-        className="absolute right-80 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 text-3xl"
-      >
-        ›
-      </button>
-
-      {/* Dots */}
-      <div className="mt-6 flex justify-center space-x-2">
-        {testimonialsData.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              setDirection(i > testimonialIndex ? 1 : -1);
-              setTestimonialIndex(i);
-            }}
-            className={`w-2 h-2 rounded-full ${
-              i === testimonialIndex ? "bg-gray-600" : "bg-gray-300"
-            }`}
-          ></button>
+          </div>
         ))}
       </div>
+
+      {/* Mobile layout */}
+      <div className="md:hidden flex flex-col gap-12">
+        {testimonials.map((row, rowIdx) => (
+          <div key={rowIdx} className="overflow-hidden w-full">
+            <div
+              className="flex gap-6 w-max"
+              style={{
+                animation: `${rowIdx === 1 ? 'scroll-right' : 'scroll-left'} 14s linear infinite`,
+              }}
+            >
+              {[...row, ...row].map((item, i) => (
+                <div
+                  key={`mobile-${rowIdx}-${i}`}
+                  className="min-w-[250px] max-w-[300px] border border-white/10 p-5 rounded-2xl backdrop-blur-md bg-white/5"
+                >
+                  <p className="text-sm text-white/90 mb-4">{item.text}</p>
+                  <p className="font-semibold">{item.author}</p>
+                  <p className="text-xs text-white/60">{item.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
     </section>
 
 
 
 
 
-     <section className="bg-gray-50 py-16 px-6 md:px-16">
+     <section className="bg-black py-16 px-6 md:px-16 ">
       <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 ">
         {/* Left: Doctor Image */}
         <div className="flex justify-center ">
@@ -911,7 +1154,7 @@ const items = [
     whileHover={{ x: 0 }} // stop shaking when hovered (optional)
   >
     <Image
-      src="/5.jpeg"
+      src="/doc.png"
       alt="Doctor Video Consultation"
       width={400}
       height={500}
@@ -923,11 +1166,11 @@ const items = [
 
         {/* Right: Text + Input + Buttons */}
         <div>
-         <h2 className={`text-2xl md:text-3xl font-semibold text-gray-900 ${merriweather.className}`}>
-  <span className="text-green-600">Download </span>the Sukoon app
+         <h2 className={`text-3xl md:text-4xl font-light mb-4 text-white/90`}>
+  <span className="text-green-600 text-3xl md:text-4xl font-light mb-4">Download </span>the Sukoon app
 </h2>
 
-          <p className={`mt-4 text-gray-600 text-base md:text-lg max-w-md ${roboto.className}`}>
+          <p className={`mt-4 text-white text-base md:text-lg max-w-md ${merriweather.className}`}>
             Access video consultation with India’s top Consultants on the Sukoon app.
             Connect with Consultants online, available 24/7, from the comfort of your
             home.
@@ -936,18 +1179,19 @@ const items = [
           {/* Phone Input */}
           <div className="mt-6 flex flex-col sm:flex-row items-center gap-3">
             <div className="flex border rounded-lg w-full sm:w-auto overflow-hidden">
-              <span className="flex items-center px-3 bg-gray-100 text-gray-600 text-sm">
+              <span className="flex items-center px-3 bg-gray-100 text-sm">
                 +91
               </span>
               <input
                 type="tel"
                 placeholder="Enter phone number"
-                className="px-3 py-2 w-full outline-none text-gray-800"
+                className="px-3 py-2 w-full outline-none text-white"
               />
             </div>
-            <button className="px-3 py-1 rounded-lg bg-green-600 text-white font-medium hover:bg-sky-600 transition">
-              Send SMS
-            </button>
+<button className="px-3 py-1 rounded-lg bg-green-600 text-white font-medium hover:bg-sky-600 transition whitespace-nowrap">
+  Send SMS
+</button>
+
           </div>
 
           {/* Store Buttons */}
@@ -974,10 +1218,10 @@ const items = [
     </section>
 
 
-     <section className="bg-green-50 py-16">
+     <section className="bg-black py-16">
       <div className="max-w-3xl mx-auto text-center px-6">
-        <h2 className="text-3xl font-bold text-green-900">Join Our Community</h2>
-        <p className="mt-4 text-green-700">
+        <h2 className="text-green-400 font-bold text-3xl md:text-4xl font-light mb-4">Join Our Community</h2>
+        <p className="mt-4 text-green-600">
           Connect with healthcare experts, share experiences, and grow together.
         </p>
         <button className="mt-6 px-6 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
@@ -986,7 +1230,7 @@ const items = [
       </div>
     </section>
 
-     <footer className="bg-green-50 text-black py-12 px-6 md:px-16">
+     <footer className="bg-green-600 text-white py-12 px-6 md:px-16 ">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
         {/* Sukoon Column */}
         <div>
@@ -1003,7 +1247,7 @@ const items = [
         {/* For Patients */}
         <div>
           <h3 className="font-semibold mb-4">For patients</h3>
-          <ul className="space-y-2 text-sm text-black">
+          <ul className="space-y-2 text-sm text-white">
             <li><a href="#">Search for Consultants</a></li>
             <li><a href="#">Search for clinics</a></li>
             <li><a href="#">Search for hospitals</a></li>
@@ -1020,11 +1264,11 @@ const items = [
         {/* For Doctors + Clinics */}
         <div>
           <h3 className="font-semibold mb-4">For Consultants</h3>
-          <ul className="space-y-2 text-sm text-black">
+          <ul className="space-y-2 text-sm text-white">
             <li><a href="#">Sukoon Profile</a></li>
           </ul>
           <h3 className="font-semibold mt-6 mb-4">For clinics</h3>
-          <ul className="space-y-2 text-sm text-black">
+          <ul className="space-y-2 text-sm text-white">
             <li><a href="#">Ray by Sukoon</a></li>
             <li><a href="#">Sukoon Reach</a></li>
             <li><a href="#">Ray Tab</a></li>
@@ -1035,7 +1279,7 @@ const items = [
         {/* For Hospitals + Corporates */}
         <div>
           <h3 className="font-semibold mb-4">For hospitals</h3>
-          <ul className="space-y-2 text-sm text-black">
+          <ul className="space-y-2 text-sm text-white">
             <li><a href="#">Insta by Sukoon</a></li>
             <li><a href="#">Qikwell by Sukoon</a></li>
             <li><a href="#">Sukoon Profile</a></li>
@@ -1043,7 +1287,7 @@ const items = [
             <li><a href="#">Sukoon Drive</a></li>
           </ul>
           <h3 className="font-semibold mt-6 mb-4">For Corporates</h3>
-          <ul className="space-y-2 text-sm text-black">
+          <ul className="space-y-2 text-sm text-white">
             <li><a href="#">Wellness Plans</a></li>
           </ul>
         </div>
@@ -1051,7 +1295,7 @@ const items = [
         {/* More */}
         <div>
           <h3 className="font-semibold mb-4">More</h3>
-          <ul className="space-y-2 text-sm text-black">
+          <ul className="space-y-2 text-sm text-white">
             <li><a href="#">Help</a></li>
             <li><a href="#">Developers</a></li>
             <li><a href="#">Privacy Policy</a></li>
@@ -1065,7 +1309,7 @@ const items = [
         {/* Social */}
         <div>
           <h3 className="font-semibold mb-4">Social</h3>
-          <ul className="space-y-2 text-sm text-black">
+          <ul className="space-y-2 text-sm text-white">
             <li><a href="#">Facebook</a></li>
             <li><a href="#">Twitter</a></li>
             <li><a href="#">LinkedIn</a></li>
@@ -1079,9 +1323,9 @@ const items = [
       <div className="mt-12 border-t border-gray-600 pt-6 text-center">
         <div className="flex justify-center items-center space-x-2 mb-2">
           <span className="w-3 h-3 rounded-full bg-green-400"></span>
-          <span className="text-2xl font-bold text-green-600">Sukoon</span>
+          <span className="text-2xl font-bold text-green-400">Sukoon</span>
         </div>
-        <p className="text-sm text-black">
+        <p className="text-sm text-white">
           Copyright © 2025, Sukoon. All rights reserved.
         </p>
       </div>
