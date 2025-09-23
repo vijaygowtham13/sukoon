@@ -62,10 +62,10 @@ const steps = [
 
 
 const services = [
-  { icon: "💬", title: "Instant Q&A" },
-  { icon: "👥", title: "Live Community" },
-  { icon: "✨", title: "Expert Consultation" },
-  { icon: "💡", title: "Daily Tips" },
+  { img: "/s1.gif", title: "Instant Q&A" },
+  { img: "/s2.gif", title: "Live Community" },
+  { img: "/s3.gif", title: "Expert Consultation" },
+  { img: "/s4.gif", title: "Daily Tips" },
   
 ];
 
@@ -624,43 +624,45 @@ const items = [
       
       {/* Background */}
      
-<section className="relative py-24 overflow-hidden bg-black">
-  {/* Title */}
- <h2 className="text-center text-3xl md:text-4xl font-light mb-16 text-white/90">
+ return (
+    <section className="relative py-24 overflow-hidden bg-black">
+      <h2 className="text-center text-3xl md:text-4xl font-light mb-16 text-white/90">
         Our Services
       </h2>
 
-  {/* Desktop: Keep your existing 3D CardSwap */}
-  {/* Desktop only */}
-  <div>
-      {/* ✅ Desktop 3D Carousel */}
-      <div className="hidden md:flex relative justify-center items-center h-[400px] overflow-x-hidden ">
+      {/* Desktop 3D Carousel */}
+      <div className="hidden md:flex relative justify-center items-center h-[400px] overflow-x-hidden">
         {services.map((service, i) => {
           const offset = i - active;
           const scale = offset === 0 ? 1 : 0.8;
           const opacity = offset === 0 ? 1 : 0.4;
-          const x = `${offset * 250}px`; // wider spacing for desktop
+          const x = `${offset * 250}px`;
           const zIndex = offset === 0 ? 10 : 0;
 
           return (
             <motion.div
               key={i}
               className="absolute w-72 h-80 rounded-2xl flex flex-col items-center justify-center
-                         bg-black/20 backdrop-blur-xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.25)]
-                         text-white cursor-pointer border border-green-400 shadow-xl shadow-green-800"
+                         bg-black/20 backdrop-blur-xl border border-white/30 shadow-xl cursor-pointer"
               style={{ zIndex }}
               animate={{ x, scale, opacity }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               onClick={() => setActive(i)}
             >
-              <span className="text-7xl mb-4">{service.icon}</span>
-              <h3 className="text-xl font-semibold text-center">{service.title}</h3>
+              <img
+                src={service.img}
+                alt={service.title}
+                className="w-24 h-24 mb-4 object-contain"
+              />
+              <h3 className="text-xl font-semibold text-center text-white">
+                {service.title}
+              </h3>
             </motion.div>
           );
         })}
       </div>
 
-      {/* ✅ Mobile 3D Carousel */}
+      {/* Mobile 3D Carousel */}
       <div className="md:hidden relative flex justify-center items-center h-[300px] overflow-x-hidden">
         {services.map((service, i) => {
           const offset = i - active;
@@ -673,21 +675,26 @@ const items = [
             <motion.div
               key={i}
               className="absolute w-60 h-72 rounded-2xl flex flex-col items-center justify-center
-                         bg-white/20 backdrop-blur-xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.2)]
-                         text-white cursor-pointer"
+                         bg-white/20 backdrop-blur-xl border border-white/30 shadow-xl cursor-pointer"
               style={{ zIndex }}
               animate={{ x, scale, opacity }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
               onClick={() => setActive(i)}
             >
-              <span className="text-6xl mb-3">{service.icon}</span>
-              <h3 className="text-lg font-semibold text-center">{service.title}</h3>
+              <img
+                src={service.img}
+                alt={service.title}
+                className="w-20 h-20 mb-3 object-contain"
+              />
+              <h3 className="text-lg font-semibold text-center text-white">
+                {service.title}
+              </h3>
             </motion.div>
           );
         })}
       </div>
 
-      {/* ✅ Dots (shared for both) */}
+      {/* Dots */}
       <div className="flex justify-center mt-12 gap-3">
         {services.map((_, i) => (
           <button
@@ -699,8 +706,7 @@ const items = [
           />
         ))}
       </div>
-    </div>
-</section>
+    </section>
 
     
 
