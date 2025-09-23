@@ -624,7 +624,7 @@ const items = [
       
       {/* Background */}
      
- return (
+ 
     <section className="relative py-24 overflow-hidden bg-black">
       <h2 className="text-center text-3xl md:text-4xl font-light mb-16 text-white/90">
         Our Services
