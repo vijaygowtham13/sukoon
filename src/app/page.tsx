@@ -490,134 +490,45 @@ const items = [
 </header>
       {/* SEARCH BAR */}
   {/* Desktop version (unchanged) */}
-<section className="max-w-xl mx-40 px-2 mt-25 hidden sm:block">
-  <motion.div
-    animate={{ x: [0, -5, 5, -5, 5, 0] }}
-    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-    whileHover={{ x: 0 }}
-    whileTap={{ x: 0 }}
-    className="flex border border-green-600 rounded-md overflow-hidden shadow-sm h-10"
-  >
-    {/* location */}
-    <div className="flex items-center gap-3 px-4 border-r border-green-600 bg-white w-56">
-      <svg
-        className="w-4 h-4 text-green-600"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
-        />
-        <path
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M21 11.5c0 6.5-9 11-9 11s-9-4.5-9-11a9 9 0 1118 0z"
-        />
-      </svg>
-      <input
-        className="w-full outline-none text-sm text-green-300 placeholder-green-600"
-        placeholder="Dubai"
+
+<section className="max-w-3xl mx-auto mt-25 px-4">
+  <div className="flex flex-col sm:flex-row border border-green-600 rounded-lg overflow-hidden shadow-md">
+
+    {/* Location dropdown */}
+    <div className="relative w-full sm:w-60 border-b sm:border-b-0 sm:border-r border-green-600 bg-white">
+      <img
+        src="/mappin.gif" // replace with your file name in public folder
+        className="absolute left-0 top-0 w-10 h-15 pointer-events-none"
+        alt="Location Icon"
       />
+      <select className="w-full h-10 pl-10 pr-4 text-green-700 text-sm outline-none appearance-none">
+        <option>Dubai</option>
+        <option>New York</option>
+        <option>London</option>
+        <option>Sydney</option>
+      </select>
     </div>
 
-    {/* search */}
-    <div className="flex items-center px-4 flex-1 bg-green-600">
-      <svg
-        className="w-4 h-4 text-white mr-3"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M21 21l-4.35-4.35"
-        />
-        <path
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M11 18a7 7 0 100-14 7 7 0 000 14z"
-        />
-      </svg>
-      <input
-        className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
-        placeholder="Search related consultants etc."
+    {/* Search input with floating button */}
+    <div className="relative w-full bg-green-200 flex items-center">
+      <img
+        src="/svgimg.svg" // replace with your search icon file
+        className="absolute left-1 w-10 h-10 pointer-events-none"
+        alt="Search Icon"
       />
+      <input
+        type="text"
+        placeholder="Search consultants, services, etc."
+        className="w-full h-10 pl-10 pr-20 placeholder- bg-transparent outline-none text-black"
+      />
+      <button className="absolute right-2 px-4 py-1 bg-green-700 hover:bg-green-800 text-white text-sm font-medium rounded-lg transition">
+        Search
+      </button>
     </div>
-  </motion.div>
+
+  </div>
 </section>
 
-{/* Mobile version */}
-<section className="sm:hidden px-4 mt-25">
-  <motion.div
-    animate={{ x: [0, -3, 3, -3, 3, 0] }}
-    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-    whileHover={{ x: 0 }}
-    whileTap={{ x: 0 }}
-    className="flex flex-col gap-2 border border-green-600 rounded-md overflow-hidden shadow-sm"
-  >
-    {/* location */}
-    <div className="flex items-center gap-2 px-3 border-b border-green-600 bg-white h-10">
-      <svg
-        className="w-4 h-4 text-green-600"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
-        />
-        <path
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M21 11.5c0 6.5-9 11-9 11s-9-4.5-9-11a9 9 0 1118 0z"
-        />
-      </svg>
-      <input
-        className="w-full outline-none text-sm text-green-700 placeholder-green-600"
-        placeholder="Dubai"
-      />
-    </div>
-
-    {/* search */}
-    <div className="flex items-center px-3 bg-green-600 h-10">
-      <svg
-        className="w-4 h-4 text-white mr-2"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M21 21l-4.35-4.35"
-        />
-        <path
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M11 18a7 7 0 100-14 7 7 0 000 14z"
-        />
-      </svg>
-      <input
-        className="w-full outline-none text-sm text-white placeholder-white/80 bg-transparent"
-        placeholder="Search related consultants etc."
-      />
-    </div>
-  </motion.div>
-</section>
 
 
 
@@ -630,7 +541,7 @@ const items = [
         {/* Card 1 */}
 <motion.article
   initial="hiddenBottom"
-  animate={inView ? { opacity: 1, y: 0, rotateY: 360 } : { opacity: 0, y: 100, rotateY: 0 }}
+  animate={inView ? { opacity: 1, y: 0, rotateY: 0 } : { opacity: 0, y: 100, rotateY: 0 }}
   transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
   whileHover={{ rotateY: 10, rotateX: -5, scale: 1.05 }}
   style={{ perspective: "1000px" }}
@@ -650,7 +561,7 @@ const items = [
         {/* Card 2 */}
        <motion.article
   initial="hiddenBottom"
-  animate={inView ? { opacity: 1, y: 0, rotateY: 360 } : { opacity: 0, y: 100, rotateY: 0 }}
+  animate={inView ? { opacity: 1, y: 0, rotateY: 0 } : { opacity: 0, y: 100, rotateY: 0 }}
   transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
   whileHover={{ rotateY: 10, rotateX: -5, scale: 1.05 }}
   style={{ perspective: "1000px" }}
@@ -670,7 +581,7 @@ const items = [
         {/* Card 3 */}
         <motion.article
   initial="hiddenBottom"
-  animate={inView ? { opacity: 1, y: 0, rotateY: 360 } : { opacity: 0, y: 100, rotateY: 0 }}
+  animate={inView ? { opacity: 1, y: 0, rotateY: 0 } : { opacity: 0, y: 100, rotateY: 0 }}
   transition={{ type: "spring", stiffness: 80, damping: 20, duration: 3 }}
   whileHover={{ rotateY: 10, rotateX: -5, scale: 1.05 }}
   style={{ perspective: "1000px" }}
@@ -763,7 +674,7 @@ const items = [
               key={i}
               className="absolute w-60 h-72 rounded-2xl flex flex-col items-center justify-center
                          bg-white/20 backdrop-blur-xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.2)]
-                         text-gray-900 cursor-pointer"
+                         text-white cursor-pointer"
               style={{ zIndex }}
               animate={{ x, scale, opacity }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
@@ -902,11 +813,6 @@ cursor-pointer>
 
 
 
-
-
-
-
-
       <section className="px-6 md:px-35 py-12 bg-black">
   {/* Heading */}
   <h1 className="text-center text-3xl md:text-4xl font-light mb-4 text-white/90">
@@ -993,6 +899,35 @@ cursor-pointer>
 </div>
 
 </section>
+
+
+<main className="flex-grow px-4 py-1 bg-black">
+        <div className="max-w-4xl mx-auto text-center relative rounded-2xl p-10 md:p-16 bg-[#130017] overflow-hidden shadow-2xl border border-white/5">
+          {/* Radial blurred background glow */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute w-[400px] h-[400px] bg-purple-500/20 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_#3b0764_0%,_transparent_70%)] opacity-20 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-grid-small opacity-[0.05] pointer-events-none"></div>
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-green-400">
+              Book Your First Health Consultation Now!
+            </h2>
+            <p className="text-sm md:text-base text-white/70 mb-8 leading-relaxed max-w-xl mx-auto">
+            Discover how Sukoon can make healthcare simpler, faster, and more accessible for you.
+Take the next step—your wellness journey starts here!
+            </p>
+            <button className="bg-white text-black font-semibold px-6 py-2 rounded-xl shadow-lg hover:bg-white/90 transition">
+              Schedule your consultation now
+            </button>
+          </div>
+        </div>
+      </main>
+
+
+
 
      <section className="px-6 md:px-80 py-12 bg-black">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
@@ -1230,106 +1165,91 @@ cursor-pointer>
       </div>
     </section>
 
-     <footer className="bg-green-600 text-white py-12 px-6 md:px-16 ">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
-        {/* Sukoon Column */}
-        <div>
-          <h3 className="font-semibold mb-4">Sukoon</h3>
-          <ul className="space-y-2 text-sm text-200">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Press</a></li>
-            <li><a href="#">Contact Us</a></li>
-          </ul>
-        </div>
+     <footer className="bg-gradient-to-r from-green-200 to-green-100 text-gray-700 mt-0">
+  <div className="max-w-7xl mx-auto px-6 py-12">
 
-        {/* For Patients */}
-        <div>
-          <h3 className="font-semibold mb-4">For patients</h3>
-          <ul className="space-y-2 text-sm text-white">
-            <li><a href="#">Search for Consultants</a></li>
-            <li><a href="#">Search for clinics</a></li>
-            <li><a href="#">Search for hospitals</a></li>
-            <li><a href="#">Sukoon Plus</a></li>
-            <li><a href="#">Covid Hospital listing</a></li>
-            <li><a href="#">Sukoon Care Clinics</a></li>
-            <li><a href="#">Read health articles</a></li>
-            <li><a href="#">Read about medicines</a></li>
-            <li><a href="#">Sukoon drive</a></li>
-            <li><a href="#">Health app</a></li>
-          </ul>
-        </div>
+    {/* Top section */}
+    <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-4">
 
-        {/* For Doctors + Clinics */}
-        <div>
-          <h3 className="font-semibold mb-4">For Consultants</h3>
-          <ul className="space-y-2 text-sm text-white">
-            <li><a href="#">Sukoon Profile</a></li>
-          </ul>
-          <h3 className="font-semibold mt-6 mb-4">For clinics</h3>
-          <ul className="space-y-2 text-sm text-white">
-            <li><a href="#">Ray by Sukoon</a></li>
-            <li><a href="#">Sukoon Reach</a></li>
-            <li><a href="#">Ray Tab</a></li>
-            <li><a href="#">Sukoon Pro</a></li>
-          </ul>
-        </div>
-
-        {/* For Hospitals + Corporates */}
-        <div>
-          <h3 className="font-semibold mb-4">For hospitals</h3>
-          <ul className="space-y-2 text-sm text-white">
-            <li><a href="#">Insta by Sukoon</a></li>
-            <li><a href="#">Qikwell by Sukoon</a></li>
-            <li><a href="#">Sukoon Profile</a></li>
-            <li><a href="#">Sukoon Reach</a></li>
-            <li><a href="#">Sukoon Drive</a></li>
-          </ul>
-          <h3 className="font-semibold mt-6 mb-4">For Corporates</h3>
-          <ul className="space-y-2 text-sm text-white">
-            <li><a href="#">Wellness Plans</a></li>
-          </ul>
-        </div>
-
-        {/* More */}
-        <div>
-          <h3 className="font-semibold mb-4">More</h3>
-          <ul className="space-y-2 text-sm text-white">
-            <li><a href="#">Help</a></li>
-            <li><a href="#">Developers</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">PCS T&C</a></li>
-            <li><a href="#">Healthcare Directory</a></li>
-            <li><a href="#">Sukoon Health Wiki</a></li>
-          </ul>
-        </div>
-
-        {/* Social */}
-        <div>
-          <h3 className="font-semibold mb-4">Social</h3>
-          <ul className="space-y-2 text-sm text-white">
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">YouTube</a></li>
-            <li><a href="#">GitHub</a></li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Bottom Section */}
-      <div className="mt-12 border-t border-gray-600 pt-6 text-center">
-        <div className="flex justify-center items-center space-x-2 mb-2">
-          <span className="w-3 h-3 rounded-full bg-green-400"></span>
-          <span className="text-2xl font-bold text-green-400">Sukoon</span>
-        </div>
-        <p className="text-sm text-white">
-          Copyright © 2025, Sukoon. All rights reserved.
+      {/* Branding & newsletter */}
+      <div className="flex flex-col gap-4">
+        <h2 className="text-2xl font-bold text-green-400">Sukoon</h2>
+        <p className="text-sm max-w-xs text-black">
+          Your trusted healthcare partner. Providing seamless healthcare solutions for a healthier tomorrow.
         </p>
+
+        {/* Newsletter signup */}
+        <div className="flex mt-2 w-full max-w-xs">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="w-full px-4 py-2 rounded-l-md border border-green-400 outline-none text-sm"
+          />
+          <button className="px-4 py-2 bg-green-400 text-white rounded-r-md hover:bg-green-500 transition text-sm font-medium">
+            Subscribe
+          </button>
+        </div>
+
+        {/* Social icons */}
+        <div className="flex gap-4 mt-3">
+          <a href="#" className="text-green-600 hover:text-green-700 transition">
+            <img src="/facebook.png" alt="Facebook" className="w-5 h-5" />
+          </a>
+          <a href="#" className="text-green-600 hover:text-green-700 transition">
+            <img src="/twitter.png" alt="Twitter" className="w-5 h-5" />
+          </a>
+          <a href="#" className="text-green-600 hover:text-green-700 transition">
+            <img src="/linkedin.png" alt="LinkedIn" className="w-5 h-5" />
+          </a>
+        </div>
       </div>
-    </footer>
+
+      {/* Services */}
+      <div>
+        <h3 className="font-semibold mb-3">Services</h3>
+        <ul className="space-y-2 text-sm">
+          <li><a href="#" className="hover:text-green-400 transition text-black">Telemedicine</a></li>
+          <li><a href="#" className="hover:text-green-400 transition text-black">Online Connect</a></li>
+          <li><a href="#" className="hover:text-green-400 transition text-black">Health Records</a></li>
+          <li><a href="#" className="hover:text-green-400 transition text-black">Patient Support</a></li>
+        </ul>
+      </div>
+
+      {/* Resources */}
+      <div>
+        <h3 className="font-semibold mb-3">Resources</h3>
+        <ul className="space-y-2 text-sm">
+          <li><a href="#" className="hover:text-green-400 transition text-black">Blog</a></li>
+          <li><a href="#" className="hover:text-green-400 transition text-black">Guides</a></li>
+          <li><a href="#" className="hover:text-green-400 transition text-black">FAQs</a></li>
+          <li><a href="#" className="hover:text-green-400 transition text-black">Support Center</a></li>
+        </ul>
+      </div>
+
+      {/* Contact */}
+      <div>
+        <h3 className="font-semibold mb-3">Contact</h3>
+        <ul className="space-y-2 text-sm">
+          <li>Email: <a href="mailto:info@sukoon.com" className="hover:text-green-400 transition text-black">info@sukoon.com</a></li>
+          <li>Phone: <a href="tel:+1234567890" className="hover:text-green-400 transition text-black">+1 234 567 890</a></li>
+          <li>Address: 123 Healthcare St, City</li>
+        </ul>
+      </div>
+
+    </div>
+
+    {/* Bottom section */}
+    <div className="mt-10 border-t border-green-300 pt-6 flex flex-col md:flex-row md:justify-between text-sm text-black">
+      <p>© {new Date().getFullYear()} Sukoon. All rights reserved.</p>
+      <div className="flex gap-4 mt-2 md:mt-0">
+        <a href="/terms" className="hover:text-green-400 transition">Terms & Conditions</a>
+        <a href="/privacy" className="hover:text-green-400 transition">Privacy Policy</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
     </div>
   );
 }

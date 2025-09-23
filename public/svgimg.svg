@@ -1,0 +1,32 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Whole magnifying glass group moving left and right -->
+  <g>
+    <g>
+      <!-- Animate group movement left-right -->
+      <animateTransform
+        attributeName="transform"
+        type="translate"
+        values="-2,0;2,0;-2,0"
+        dur="2s"
+        repeatCount="indefinite"
+      />
+      <!-- Circle (lens) -->
+      <circle cx="25" cy="25" r="10" stroke="#A020F0" stroke-width="3" fill="none"/>
+      <!-- Handle -->
+      <line x1="31" y1="31" x2="45" y2="45" stroke="#A020F0" stroke-width="3"/>
+      <!-- Rotating tiny rectangle inside lens -->
+      <g>
+        <rect x="28" y="24.5" width="2" height="1.5" fill="white">
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 25 25"
+            to="360 25 25"
+            dur="0.3s"
+            repeatCount="indefinite"
+          />
+        </rect>
+      </g>
+    </g>
+  </g>
+</svg>
