@@ -422,34 +422,34 @@ const items = [
   
 
       {/* NAVBAR */}
-     <header className="border-b border-green-600">
-  <div className="fixed top-4 left-0 right-0 z-50 flex justify-between items-center px-4 md:px-5 py-4 border border-white/10 rounded-2xl mx-4 backdrop-blur-sm bg-white/5">
+<header className="border-b border-green-600">
+  <div className="fixed top-4 left-0 right-0 z-50 flex justify-between items-center px-4 md:px-5 py-4 border border-white/10 rounded-2xl mx-4 backdrop-blur-sm bg-white/90 shadow-lg">
     {/* Left: Logo + Nav (desktop only) */}
     <div className="flex items-center">
       <span className={`text-3xl font-bold text-green-700 tracking-tight ${merriweather.className}`}>
         Sukoon
       </span>
 
-      <div className="text-black ml-10 hidden md:block">
-  <GooeyNav
-    items={items}
-    particleCount={2}             // moderate number
-    particleDistances={[10, 5]}    // small spread
-    particleR={10}                 // small radius
-    initialActiveIndex={0}
-    animationTime={600}
-    timeVariance={10}             // small variance
-    colors={['green', 'green', 'green']} // green spark
-  />
-</div>
-
+      {/* Gooey Nav (desktop only) */}
+      <div className="ml-10 hidden lg:block">
+        <GooeyNav
+          items={items}
+          particleCount={2}
+          particleDistances={[10, 5]}
+          particleR={10}
+          initialActiveIndex={0}
+          animationTime={600}
+          timeVariance={10}
+          colors={['green', 'green', 'green']}
+        />
+      </div>
     </div>
 
     {/* Right: Small Links + Login (desktop only) */}
-    <div className="hidden md:flex items-center gap-6 text-sm">
-      <Link href="#" className="hover:text-gray-900">Instant Chat</Link>
-      <Link href="#" className="hover:text-gray-900">Stages</Link>
-      <Link href="#" className="hover:text-gray-900">Security & Help</Link>
+    <div className="hidden lg:flex items-center gap-6 text-sm text-black">
+      <Link href="#" className="hover:text-green-700">Instant Chat</Link>
+      <Link href="#" className="hover:text-green-700">Stages</Link>
+      <Link href="#" className="hover:text-green-700">Security & Help</Link>
       <button className="border border-green-600 rounded-md px-4 py-1 text-sm hover:shadow-sm cursor-pointer">
         Login / Signup
       </button>
@@ -457,7 +457,7 @@ const items = [
 
     {/* Mobile Toggle */}
     <button
-      className="md:hidden flex flex-col gap-1"
+      className="lg:hidden flex flex-col gap-1"
       onClick={() => setMenuOpen(!menuOpen)}
     >
       <span className="w-6 h-0.5 bg-green-700"></span>
@@ -473,7 +473,7 @@ const items = [
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="md:hidden fixed top-20 left-0 right-0 bg-white shadow-lg flex flex-col items-center py-6 gap-4 z-40"
+        className="lg:hidden fixed top-20 left-0 right-0 bg-white text-black shadow-lg flex flex-col items-center py-6 gap-4 z-40 rounded-xl mx-4"
       >
         <Link href="#" className="text-lg">AboutUs</Link>
         <Link href="#" className="text-lg">Community</Link>
@@ -488,20 +488,22 @@ const items = [
     )}
   </AnimatePresence>
 </header>
+
+
       {/* SEARCH BAR */}
   {/* Desktop version (unchanged) */}
 
-<section className="max-w-3xl mx-auto mt-25 px-4">
+<section className="max-w-3xl mx-auto mt-30 px-4">
   <div className="flex flex-col sm:flex-row border border-green-600 rounded-lg overflow-hidden shadow-md">
 
     {/* Location dropdown */}
     <div className="relative w-full sm:w-60 border-b sm:border-b-0 sm:border-r border-green-600 bg-white">
       <img
-        src="/mappin.gif" // replace with your file name in public folder
-        className="absolute left-0 top-0 w-10 h-15 pointer-events-none"
+        src="/pin.gif" // replace with your file name in public folder
+        className="absolute left-0 top-0 w-15 h-18 pointer-events-none"
         alt="Location Icon"
       />
-      <select className="w-full h-10 pl-10 pr-4 text-green-700 text-sm outline-none appearance-none">
+      <select className="w-full h-10 pl-10 pr-4 text-green-600 text-sm bg-green-100">
         <option>Dubai</option>
         <option>New York</option>
         <option>London</option>
@@ -518,7 +520,7 @@ const items = [
       />
       <input
         type="text"
-        placeholder="Search consultants, services, etc."
+        placeholder="Search consultants etc..."
         className="w-full h-10 pl-10 pr-20 placeholder- bg-transparent outline-none text-black"
       />
       <button className="absolute right-2 px-4 py-1 bg-green-700 hover:bg-green-800 text-white text-sm font-medium rounded-lg transition">
@@ -819,92 +821,97 @@ cursor-pointer>
 
 
 
-      <section className="px-6 md:px-35 py-12 bg-black">
+ <section className="px-6 lg:px-20 py-12 bg-black">
   {/* Heading */}
-  <h1 className="text-center text-3xl md:text-4xl font-light mb-4 text-white/90">
-        Schedule a Personalized Consultation with Trusted Experts
-      </h1>
+  <h1 className="text-center text-3xl lg:text-4xl font-light mb-4 text-white/90">
+    Schedule a Personalized Consultation with Trusted Experts
+  </h1>
 
   {/* Paragraph */}
- <p className="text-center text-white max-w-2xl mx-auto">
+  <p className="text-center text-white max-w-2xl mx-auto">
     Connect with Verified Specialists in Pregnancy, Childcare & Family Wellness
   </p>
 
   {/* Carousel Container */}
   <div
-  ref={carouselRef}
-  style={{ perspective: "1000px" }}
-  className="relative mt-10"
->
-  {/* Desktop carousel: visible on md and above */}
-  <div className="hidden md:block">
-    {/* Left Button */}
-    <button
-      onClick={handlePrev}
-      disabled={index === 0}
-      className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
-    >
-      <span className="text-xl">‹</span>
-    </button>
-
-    <div className="overflow-hidden">
-      <div
-        className="flex transition-transform duration-500 ease-in-out"
-        style={{ transform: `translateX(-${index * 25}%)` }}
+    ref={carouselRef}
+    style={{ perspective: "1000px" }}
+    className="relative mt-10"
+  >
+    {/* Desktop carousel: visible on lg and above */}
+    <div className="hidden lg:block">
+      {/* Left Button */}
+      <button
+        onClick={handlePrev}
+        disabled={index === 0}
+        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
       >
-        {doctors.map((doc, i) => (
-          <div key={i} className="w-1/4 flex-shrink-0 px-3 text-center">
-            <div className="rounded-xl overflow-hidden shadow-sm bg-white">
-              <Image
-                src={doc.img}
-                alt={doc.title}
-                width={300}
-                height={200}
-                className="w-full h-48 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900">{doc.title}</h3>
-                <p className="text-sm text-gray-600 mt-1">{doc.desc}</p>
+        <span className="text-xl">‹</span>
+      </button>
+
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${index * 25}%)` }}
+        >
+          {doctors.map((doc, i) => (
+            <div key={i} className="w-1/4 flex-shrink-0 px-3 text-center">
+              <div className="rounded-xl overflow-hidden shadow-sm bg-white">
+                <Image
+                  src={doc.img}
+                  alt={doc.title}
+                  width={300}
+                  height={200}
+                  className="w-full h-48 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white"
+                />
+                <div className="p-4">
+                  <h3 className="font-semibold text-gray-900">{doc.title}</h3>
+                  <p className="text-sm text-gray-600 mt-1">{doc.desc}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Right Button */}
-    <button
-      onClick={handleNext}
-      disabled={index >= doctors.length - 4}
-      className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
-    >
-      <span className="text-xl">›</span>
-    </button>
-  </div>
-
-  {/* Mobile carousel: visible below md */}
-  <div className="flex md:hidden overflow-x-scroll gap-4 no-scrollbar mt-4">
-    {doctors.map((doc, i) => (
-      <div key={i} className="flex-shrink-0 w-2/3">
-        <div className="rounded-xl overflow-hidden shadow-sm bg-white">
-          <Image
-            src={doc.img}
-            alt={doc.title}
-            width={300}
-            height={200}
-            className="w-full h-40 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white"
-          />
-          <div className="p-3">
-            <h3 className="font-semibold text-gray-900 text-sm">{doc.title}</h3>
-            <p className="text-xs text-gray-600 mt-1">{doc.desc}</p>
-          </div>
+          ))}
         </div>
       </div>
-    ))}
-  </div>
-</div>
 
+      {/* Right Button */}
+      <button
+        onClick={handleNext}
+        disabled={index >= doctors.length - 4}
+        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border shadow-md w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 z-10"
+      >
+        <span className="text-xl">›</span>
+      </button>
+    </div>
+
+    {/* Mobile & Tablet carousel: visible below lg */}
+    <div className="flex lg:hidden overflow-x-scroll gap-4 no-scrollbar mt-4">
+      {doctors.map((doc, i) => (
+        <div
+          key={i}
+          className="flex-shrink-0 w-2/3 sm:w-1/2 md:w-1/3" 
+          // 👆 responsive widths: mobile=2/3, small tablet=1/2, large tablet=1/3
+        >
+          <div className="rounded-xl overflow-hidden shadow-sm bg-white">
+            <Image
+              src={doc.img}
+              alt={doc.title}
+              width={300}
+              height={200}
+              className="w-full h-40 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white"
+            />
+            <div className="p-3">
+              <h3 className="font-semibold text-gray-900 text-sm">{doc.title}</h3>
+              <p className="text-xs text-gray-600 mt-1">{doc.desc}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
 </section>
+
+
 
 
 <main className="flex-grow px-4 py-1 bg-black">
@@ -935,49 +942,48 @@ Take the next step—your wellness journey starts here!
 
 
 
-     <section className="px-6 md:px-80 py-12 bg-black">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-        {/* Left Text Section */}
-        <div>
-          <h2 className={`text-3xl md:text-4xl font-light mb-4 text-white/90 text-center`}>
-            Read top articles from <br /> health experts
-          </h2>
-          <p className="text-white mt-3">
-            Health articles that keep you informed about good health practices
-            and achieve your goals.
-          </p>
-          <button className="mt-6 bg-green-600 hover:bg-sky-600 text-white font-semibold px-5 py-2 rounded">
-            See all articles
-          </button>
+    <section className="px-6 lg:px-40 xl:px-80 py-12 bg-black">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+    {/* Left Text Section */}
+    <div>
+      <h2 className="text-3xl lg:text-4xl font-light mb-4 text-white/90 text-center lg:text-left">
+        Read top articles from <br /> health experts
+      </h2>
+      <p className="text-white mt-3">
+        Health articles that keep you informed about good health practices
+        and achieve your goals.
+      </p>
+      <button className="mt-6 bg-green-600 hover:bg-sky-600 text-white font-semibold px-5 py-2 rounded">
+        See all articles
+      </button>
+    </div>
+
+    {/* Articles */}
+    {articles.map((article, i) => (
+      <div key={i} className="flex flex-col">
+        <div className="w-full h-48 rounded-2xl overflow-hidden border border-green-600 shadow-xl bg-white">
+          <Image
+            src={article.img}
+            alt={article.title}
+            width={400}
+            height={250}
+            className="w-full h-48 object-cover border border-green-600 shadow-xl shadow-green-300"
+          />
         </div>
-
-        {/* Articles */}
-        {articles.map((article, i) => (
-          <div key={i} className="flex flex-col">
-            <div className="w-full h-48 rounded-2xl overflow-hidden border border-green-600 shadow-xl  bg-white">
-              <Image
-                src={article.img}
-                alt={article.title}
-                width={400}
-                height={250}
-                className="w-full h-48 object-cover border border-green-600 shadow-xl shadow-green-300"
-              />
-            </div>
-            <div className="mt-3">
-              <p className="text-green-600 text-xs font-semibold uppercase tracking-wide">
-                {article.category}
-              </p>
-              <h3 className="mt-1 text-lg font-semibold text-white leading-tight">
-                {article.title}
-              </h3>
-              <p className="text-white text-sm mt-1">{article.author}</p>
-            </div>
-          </div>
-        ))}
+        <div className="mt-3">
+          <p className="text-green-600 text-xs font-semibold uppercase tracking-wide">
+            {article.category}
+          </p>
+          <h3 className="mt-1 text-lg font-semibold text-white leading-tight">
+            {article.title}
+          </h3>
+          <p className="text-white text-sm mt-1">{article.author}</p>
+        </div>
       </div>
+    ))}
+  </div>
+</section>
 
-    
-    </section>
 
      <section className="px-6 md:px-16 py-20 text-center relative overflow-hidden bg-black">
        <div className="bg-black text-white py-0 px-4 md:px-16">
