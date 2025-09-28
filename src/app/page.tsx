@@ -499,8 +499,8 @@ const items = [
     {/* Location dropdown */}
     <div className="relative w-full sm:w-60 border-b sm:border-b-0 sm:border-r border-green-600 bg-white">
       <img
-        src="/pin.gif" // replace with your file name in public folder
-        className="absolute left-0 top-0 w-15 h-18 pointer-events-none"
+        src="/gps.png" // replace with your file name in public folder
+        className="absolute left-0 top-0 w-8 h-8 pointer-events-none"
         alt="Location Icon"
       />
       <select className="w-full h-10 pl-10 pr-4 text-green-600 text-sm bg-green-100">
