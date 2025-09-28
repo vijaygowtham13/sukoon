@@ -303,7 +303,7 @@ const testimonials = [
 
    const articles = [
     {
-      img: "/4.1.jpeg",
+      img: "/art1.jpeg",
       category: "CORONAVIRUS",
       title: "How to Boost Your Child's Immunity During the Pandemic",
       author: "Dr. Diana Borgio",
@@ -500,7 +500,7 @@ const items = [
     <div className="relative w-full sm:w-60 border-b sm:border-b-0 sm:border-r border-green-600 bg-white">
       <img
         src="/gps.png" // replace with your file name in public folder
-        className="absolute left-0 top-0 w-8 h-8 pointer-events-none"
+        className="absolute left-2 top-1 w-8 h-8 pointer-events-none"
         alt="Location Icon"
       />
       <select className="w-full h-10 pl-10 pr-4 text-green-600 text-sm bg-green-100">
